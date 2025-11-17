@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Interactive Tools | Geeks Board{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <p class="text-xs uppercase text-slate-500">Interactive Tools</p>
+    <h2 class="text-3xl font-semibold text-slate-800">Choose a Category</h2>
+    <p class="text-sm text-slate-500 mt-1">Use these quick activities during lessons to engage students.</p>
+</div>
+
+<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {% for category in categories %}
+    <a href="{% url 'interactive_question' category.id %}" class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6 hover:border-accent/30 transition">
+        <p class="text-xs uppercase text-slate-500">Category</p>
+        <h3 class="text-xl font-semibold text-slate-800">{{ category.name }}</h3>
+        <p class="text-sm text-slate-500 mt-2">{{ category.description|default:"Bring energy to your class." }}</p>
+        <div class="mt-4 inline-flex items-center text-accent text-sm font-medium">Launch &rarr;</div>
+    </a>
+    {% empty %}
+    <p class="text-sm text-slate-500">No categories yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
+
+

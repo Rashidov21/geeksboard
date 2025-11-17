@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Groups | Geeks Board{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+    <div>
+        <p class="text-xs uppercase text-slate-500">Teacher Panel</p>
+        <h2 class="text-2xl font-semibold text-slate-800">Your Groups</h2>
+    </div>
+</div>
+
+<div class="grid gap-6 lg:grid-cols-2">
+    {% for group in groups %}
+    <div class="bg-white rounded-2xl shadow-lg border border-slate-100 p-6 flex flex-col gap-3">
+        <div class="flex items-center justify-between">
+            <h3 class="text-xl font-semibold text-slate-800">{{ group.name }}</h3>
+            <span class="text-sm text-slate-500">{{ group.student_total }} students</span>
+        </div>
+        <p class="text-sm text-slate-500">{{ group.subject|default:"General" }} | {{ group.schedule|default:"Schedule TBD" }}</p>
+        <div class="flex gap-3">
+            <a href="{% url 'student_list' group.id %}" class="flex-1 text-center bg-accent text-white rounded-lg py-2 text-sm font-medium hover:bg-black transition">Student List</a>
+            <a href="{% url 'student_rating' group.id %}" class="flex-1 text-center border border-accent/30 text-accent rounded-lg py-2 text-sm font-medium hover:border-accent">Ratings</a>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-sm text-slate-500">No groups created yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
+
+

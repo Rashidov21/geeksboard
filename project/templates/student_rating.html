@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Ratings | Geeks Board{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <p class="text-xs uppercase text-slate-500">Rating Table</p>
+    <div class="flex flex-wrap gap-3 items-center">
+        <h2 class="text-3xl font-semibold text-slate-800">{{ group.name }}</h2>
+        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-sm">{{ breakdown|length }} students</span>
+    </div>
+    <p class="text-sm text-slate-500 mt-1">{{ group.subject|default:"General" }} &middot; {{ group.schedule|default:"Schedule TBD" }}</p>
+</div>
+
+<div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+    <div class="overflow-x-auto">
+        <table class="min-w-full text-sm">
+            <thead>
+                <tr class="text-left text-slate-500 uppercase text-xs">
+                    <th class="py-3">#</th>
+                    <th class="py-3">Student</th>
+                    {% for category in categories %}
+                    <th class="py-3">{{ category.name }}</th>
+                    {% endfor %}
+                    <th class="py-3 text-right">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in breakdown %}
+                <tr class="border-t border-slate-100">
+                    <td class="py-3">
+                        <span class="px-2 py-1 rounded-full text-xs font-semibold
+                            {% if forloop.counter == 1 %}bg-yellow-100 text-yellow-700
+                            {% elif forloop.counter == 2 %}bg-slate-200 text-slate-700
+                            {% elif forloop.counter == 3 %}bg-orange-100 text-orange-700
+                            {% else %}bg-slate-100 text-slate-600{% endif %}">
+                            {{ forloop.counter }}
+                        </span>
+                    </td>
+                    <td class="py-3 font-medium text-slate-800">{{ row.student.full_name }}</td>
+                    {% for score in row.scores %}
+                    <td class="py-3 text-slate-600">{{ score }}</td>
+                    {% endfor %}
+                    <td class="py-3 text-right font-semibold text-accent">{{ row.student.total_points|default:0 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
