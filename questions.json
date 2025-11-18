@@ -1,0 +1,502 @@
+[
+    [
+        "1 — Mahmudning 10 ta qo’yi bor edi. 9 tadan boshqa hamma qo’ylari o’lib qoldi. Mahmudning nechta qo’yi qoldi?",
+        "9 ta."
+    ],
+    [
+        "2 — U sizga tegishli, ammo boshqalar undan sizga nisbatan ancha ko’proq foydalanishadi. U nima?",
+        "Sizning ismingiz."
+    ],
+    [
+        "3 — Bu shaxmat donasi sabab o’rta asrlarda arab shohlari bu o’yinni o’ynashni istashmagan.",
+        "Ot, sababi islom dinida hayvon tasviri mumkin emas."
+    ],
+    [
+        "4 — Tuxumni balandlikdan tashlab yuborishdi. U pastga tomon 3 metr tushganda ham yorilmadi. Buning sababi nimada?",
+        "Tuxum 10 metr balandlikdan tashlangandi. 3 metr o’tgach, sinishi uchun yana 7 metr masofa qolgandi."
+    ],
+    [
+        "5 — Haydovchi yuk mashinasini haydab ketayotgan edi. Mashinaning yoritgichlari (faralari) o’chgan, osmonda oy ham ko’rinmasdi. Shu vaqt yo’lni bir ayol kesib o’ta boshladi, lekin haydovchi u ayolni uzoqdan ko’ra oldi. Haydovchining bunday muvaffaqqiyati nimaga bog’liq edi?",
+        "Chunki o’sha vaqt kunduzi edi."
+    ],
+    [
+        "6 — Kim o’tirgan holda yuradi?",
+        "Shaxmatchi."
+    ],
+    [
+        "7 — Qanday holatda 3 ta yosh bola, 4 ta katta yoshli odam, 1 ta mushuk va 1 ta it bittagina soyabon tagida turib, yomg’ir ostida nam bo’lmaydi?",
+        "Yomg’ir yog’mayotgan bo’lsa."
+    ],
+    [
+        "8 — Rimliklar sanchqi (vilka) konstruktsiyasiga revolyutsion yangilik kiritishdi. Sanchqilarning barcha keyingi modellari ularning kashfiyoti varianti qilib yasala boshlandi. Bu kashfiyotdan oldin sanchqi qanaqa edi?",
+        "Bir tishli edi."
+    ],
+    [
+        "9 — Yo’llari bor, yurib bo’lmaydi,Yerlari bor – ekib bo’lmaydi,yam-yashil o’tloq bor – yulishni iloji yo’q,Dengiz, daryo ko’llari bor, ammo suvi yo’q.Bu nima?",
+        "Xarita."
+    ],
+    [
+        "10 — Yerdan osonlikcha ko’tarish mumkin, lekin uni uzoqqa otib bo’lmaydi. Bu nima?",
+        "Qush pati."
+    ],
+    [
+        "11 — Bir kuni chol ikki nabirasi bilan yo’lga chiqibdi. Ular yo’lda ketayotib katta daryoga duch kelibdi. Daryoda qayiq bor ekan. Qayiq esa faqatgina 100 kilogram yukni ko’tara olarkan. Chol o’zi 100 kilo ekan. Nabiralar esa 50 kilodan ekan. Ular daryoni u betiga o’tishlari shart.Qanday qilib o’tib olish mumkin?",
+        "Dastlab nabiralar o’tadi, ulardan biri tushib qolib biri qaytadi. Bu safar bobo narigi betga o’tadi va u yerdagi nabira qayiqqa o’tirib bu tarafda qolgan nabira bilan birgao’tadi."
+    ],
+    [
+        "12 — Ikki ota va ikki farzand ketishayotgandi. Do’kondan uchta olma xarid qilishdi. Bo’lmadilar, kesmadilar, teng qilib bo’lib olishdi. Qanday qilib?",
+        "Ketayotganlar boto, ota va bola bo’lib, har biri bittadan olma olishgan."
+    ],
+    [
+        "13 — Bu xarf deyarli dunyoning barcha alfavitlarida 1 xil yozilishi bilan rekord o’rnatgan. bu qaysi xarf?",
+        "O harfi."
+    ],
+    [
+        "14 — Qaysi holatda 2 ga qarab, 10 deymiz?",
+        "Soat strelkasi 2 da turganda."
+    ],
+    [
+        "15 — Yomg’ir vaqtida qarg’a qanday daraxtga qo’nadi?",
+        "Nam bo’lgan daraxtga."
+    ],
+    [
+        "16 — O’rdaklar suv ichishga qator bo’lib ketayotgan edi. O’rdaklardan biri oldinga qarab, 17 ta boshni ko’rdi. Ortiga qarasa — 42 ta panja kelayotgan ekan. Jami nechta o’rdak suv ichishga ketmoqda?",
+        "39 ta. Oldinda 17 ta o’rdak. Ortida esa 21 ta. Shuningdek boshini orqa-oldinga burgan o’rdakning o’zi ham."
+    ],
+    [
+        "17 — Umida qog’ozga 86 sonini yozib, dugonasidan «ushbu sonni qog’ozda hech narsani o’chirmasdan, bo’yamasdan va chizmasdan 12 ga oshira olasanmi» deb so’radi.Dugonasi buni eplay oldi. Qanday qilib?",
+        "Qog’ozni teskari qilish orqali, bunda 86 -> 98 ga aylanadi."
+    ],
+    [
+        "18 — Kichkina, kulranggina, filga o’xshaydi.",
+        "Filning bolasi."
+    ],
+    [
+        "19 — Sherlok Xolms ko’chada sayr qilib yurgan edi. To’satdan u yerda jonsiz yotgan ayol tanasiga ko’zi tushdi. Aftidan qotillikka o’xshardi. U ayolning yoniga kelib, uning sumkasini ochdi va uning telefonini oldi. Telefonda uning turmush o’rtog’i raqamini topib, unga qo’ng’iroq qildi va shunday dedi:",
+        "Sherlok Xolms erkakka qotillik sodir bo’lgan manzilni aytmagan edi."
+    ],
+    [
+        "20 — Nok osilib turibdi, lekin uni yeb bo’lmaydi. Lampochka emas.",
+        "Begonaning noki."
+    ],
+    [
+        "21 — Stolning 4 ta burchagi bor. Uning bir burchagini kesib yuborsak nechta burchak qoladi?",
+        "5 ta."
+    ],
+    [
+        "22 — Erkak kishi o’zining bevasining singlisiga uylanishi mumkinmi?",
+        "Yo’q, o’zi vafot etgan kishi hech kimga uylana olmaydi."
+    ],
+    [
+        "23 — Shifokor bemorga 30 daqiqa oraliq bilan 3 ta ukol olishni belgiladi. Hamshira ukol qilishni soat 10:30 da boshlasa, bemor soat nechida ukollarni to’liq olib bo’ladi?",
+        "Soat 11:30 da, birinchisi 10:30 da, ikkinchisi 11:00 da, uchinchisi esa 11:30 da."
+    ],
+    [
+        "24 — Yerdan turib, to’qqiz qavatli uydan balandroq sakrash mumkinmi?",
+        "Albatta mumkin, to’qqiz qavatli uylar sakrashni bilmaydi."
+    ],
+    [
+        "25 — Itning bo’yniga 3 metr keladigan arqon bog’langan edi, lekin it to’g’ri yo’nalish bilan 5 metr yura oldi. U bunga qanday erishdi?",
+        "Arqonning ikkinchi uchi hech qayerga bog’lanmagan edi."
+    ],
+    [
+        "26 — Qaysi inson otni ham, filni ham hech bir qiyinchiliksiz ko’tarishga, ularni joyini o’zgartirishga qodir?",
+        "Shaxmatchi."
+    ],
+    [
+        "27 — Bir kishi olmalarni 500 so’mdan sotib olib, ularni 300 so’mdan sotardi. Bir muncha vaqt o’tgach, u kishi millionerga aylandi. Buning sababi nimada?",
+        "U odam dastavval milliarder bo’lgan."
+    ],
+    [
+        "28 — O’n metrlik narvondan sakrab tushib, hech bir jarohat olmaslik uchun nima qilish kerak?",
+        "Narvonning birinchi zinasidan sakrash."
+    ],
+    [
+        "29 — Nima oq bo’lganda toza xisoblanadi, yashil bo’lganda tozalash kerak?",
+        "Maktab doskasi."
+    ],
+    [
+        "30 — Nimani 10 daqiqadan ortiq ushlab turishning iloji yo’q, garchi u o’ta yengil bo’lsa ham?",
+        "Nafasni."
+    ],
+    [
+        "31 — Nega odamlar orqaga burilib qarashadi?",
+        "Chunki ensasida ko’zlari yo’q."
+    ],
+    [
+        "32 — Mashina rulini o’ngga burganda uning qaysi g’ildiragi umuman burilmaydi?",
+        "Zaxiradagi (zapas) g’ildirak."
+    ],
+    [
+        "33 — Bir shox, bir ko’z, ammo karkidon emas.",
+        "Sigir burchakdan boshining yarimini chiqarib poylamoqda."
+    ],
+    [
+        "34 — Professor kech soat sakkizda budelnikni 9 ga qo’yib uyquga yotdi. U necha soat uxlaydi?",
+        "1 soat."
+    ],
+    [
+        "35 — U juda qiyinchilik chog’ida dunyoga keladi. Yoshlik chog’idayoq uydan chiqib ketadi. Tirik qolish uchun qo’shiq aytib kun ko’radi va o’z konserti vaqtida joniga qasd qilishadi. Ushbu qahramon va qotilni toping.",
+        "Tulki va bo’g’irsoq."
+    ],
+    [
+        "36 — 3 ta archa o’sardi. Har birida 7 tadan shox mavjud. Har bir shoxda 3 tadan olma meva bor. Barcha daraxtning jami mevalari soni nechta bo’ladi?",
+        "Archada olma nima qilsin."
+    ],
+    [
+        "37 — Uni chap qo’l bilan ushlasa bo’ladi, lekin o’ng qo’l bilan hech qachon ushlab bo’lmaydi?",
+        "O’ng qo’lning tirsagi."
+    ],
+    [
+        "38 — Stolda qalam, chizg’ich, sirkul va o’chirg’ich turibdi. Qog’ozga aylana shaklini chizish kerak bo’lsa, birinchi bo’lib nimani olish kerak?",
+        "Qog’ozni."
+    ],
+    [
+        "39 — Bir shifoxonada bemorlar soni qabul qila olish ko’rsatkichidan oshib keta boshladi. Bemorlarning aksariyati YTH jarohat olgan haydovchilar edi. Bemorlar sonini kamaytirish uchun shahar ma’muriyati haydovchilarga xavfsizlik kamarini taqishni majburiy qilib qo’ydi. Vaqt o’tgach, statistika o’rganilganda YTH-lar soni kamaymagani, ammo kasalxonaga tushgan bemorlar soni ancha ko’payganini aniqlandi. Buning sababi nimada?",
+        "Chunki xavfsizlik kamari taqilganda YTH’da vafot etadiganlar soni kamaydi, ular jarohat tufayli kasalxonaga tusha boshladi. Oldin esa vafot etishi sababli kasalxonaga tushmasdilar."
+    ],
+    [
+        "40 — Bir burchakdan qimirlamagan holda butun dunyoni kezadi.",
+        "Pochta markasi."
+    ],
+    [
+        "41 — “To’yingda elak bilan suv tashiy” degan ibora mavjud. Bu mumkinmi?",
+        "Mumkin, agar suv muzlatilgan bo’lsa."
+    ],
+    [
+        "42 — Shoh vaziriga menga nok olma anor keltir — deb buyurdi. Zukko vazir bitta meva keltirdi. Bu qaysi meva edi?",
+        "Anor. Chunki shoh nokni olma, anor keltir degan edi."
+    ],
+    [
+        "43 — Shunday insonlar borki, ular otni ham, filni ham qiyinchiliksiz ko’tara oladi, joyini o’zgartira oladi. Ular kimlar?",
+        "Shaxmatchilar."
+    ],
+    [
+        "44 — Xonaning qaysi joyiga qalam qo’yilsa, uning ustidan sakrab o’tib bo’lmaydi?",
+        "Burchakka."
+    ],
+    [
+        "45 — Qanday sharoitda qora mushukka uyga kirish oson bo’ladi?",
+        "Eshik ochiq bo’lsa."
+    ],
+    [
+        "46 — 7 ta sham yonib turgan edi. Ulardan 3 tasini o’chirib qo’yishdi. Nechta sham qoldi?",
+        "3 ta qoladi. Chunki, qolganlari yonib tugaydi."
+    ],
+    [
+        "47 — Daraxtning shoxida qarg’a bor. Qarg’ani cho’chitmasdan shoxni arralash uchun nima qilish kerak?",
+        "Qarg’aning o’zi uchib ketishini kutish kerak."
+    ],
+    [
+        "48 — Ko’p qavatli kiyim kiygan, usti yashil ichi sariq, bolalari qator-qator, pishganda mazali.",
+        "Makkajo’xori."
+    ],
+    [
+        "49 — Quyon o’rmondagi hayvonlarga shunday savol berdi: «Agar men ayiqdan og’irroq bo’lsam-u, lekin chumolidan yengilroq bo’lsam, oramizda kim eng yengil bo’ladi?».",
+        "Ayiq."
+    ],
+    [
+        "50 — Daraxtning shoxida qarg’a o’tiribdi. Qarg’ani cho’chitib yubormasdan shoxni arralash uchun nima qilish kerak?",
+        "Qarg’aning o’zi uchib ketishini kutish."
+    ],
+    [
+        "51 — Qaysi oddiy odam oldida podshohlar ham boshlarini egishgan?",
+        "Sartaroshlar oldida."
+    ],
+    [
+        "52- Stolda 70 dona oq qog’oz turibdi. Har 10 soniyada 10 ta qog’ozni sanash mumkin. Bu holda 50 ta qog’oz sanab olish uchun nechi soniya vaqt ketadi?",
+        "20 soniya. 10 soniyada birinchi o’ntasi, keyingi o’n soniyada ikkinchi o’ntasi. Stolda esa 50 ta qog’oz qoladi."
+    ],
+    [
+        "53 — Hamma narsani ko’rayotganingizda uni ko’ra olmaysiz, hech narsani ko’rmaganingizda esa uni ko’ra olasiz. U nima?",
+        "Qorong’ulik."
+    ],
+    [
+        "54 — 100 so’m pulingiz bor. 100 ta hayvon olishingiz kerak. Mol – 10 so’m, qo’y – 3 so’m, xo’roz – 50 tiyin. Qaysi hayvonlardan nechtadan olasiz?",
+        "Mol 5 ta, qo’y bitta, xo’roz 94 ta."
+    ],
+    [
+        "55 — Mashhur sehrgar xonaning o’rtasiga qo’l zo’rg’a sig’adigan shisha qo’yib uning ichiga kira olishini aytdi. U buni qanday uddalashi mumkin?",
+        "Shisha qo’yilsa ham, qo’yilmasa ham xonaga istalgan kishi kira oladi."
+    ],
+    [
+        "56 — Ikki kishi daryo sohiliga keldilar. Ularning har ikkisi ham daryoning narigi tarafiga o’tishi kerak edi. Sohilda bitta qayiq bo’lib u faqat bir kishini ko’tara olardi. Shunga qaramay ular maqsadlariga yetdilar. Ular buni qanday uddalashdi?",
+        "Ular daryoning turli sohillarida edilar."
+    ],
+    [
+        "57 — Bu narsa insonga 2 marta beriladi. Uchinchisida sotib olinadi.",
+        "Tish"
+    ],
+    [
+        "58 — A punktdan B punktga poezd yo’lga chiqdi. Unga tomon B punktdan A punktga ham harakatlana boshladi. Yo’l bir relsli, lekin poezdlar bir-biri bilan uchrashmadi. Savol: nega?",
+        "Uchrashish taqdir emas ekan."
+    ],
+    [
+        "59 — Qaysi oyda odamlar kam gapiradilar?",
+        "Fevral oyida. Negaki bu oyda kunlar kam."
+    ],
+    [
+        "60 — Ko’rganda quvonamiz, lekin baribir ko’zimizni olib qochamiz.",
+        "Quyosh."
+    ],
+    [
+        "61 — Yengil yoki og’ir bo’lishi mumkin. Lekin vaznga ega emas. Tez va asta bo’ladi, ammo yugurishga, uchishga, suzishga ham qodir emas. U nima?",
+        "Musiqa."
+    ],
+    [
+        "62 — Qaysi so’z har doim xato bo’lib eshitiladi?",
+        "Xato so’zi."
+    ],
+    [
+        "63 — Jorj Vashington, Sherlok Xolms, Vilyam Shekspir, Lyudvig Van Betxoven, Napoleon Bonapart, Aleksandr Pushkin – ushbu ro’yxatda kim “ortiqcha”?",
+        "Sherlok Xolms. Chunki, qolganlaridan farqli ravishda u to’qima shaxsdir."
+    ],
+    [
+        "64 — Uning balandligi ham, eni va bo’yi ham yo’q, lekin uni o’lchasa bo’ladi. U nima?",
+        "Harorat, vaqt."
+    ],
+    [
+        "65 — Ikki ota va ikki o’g’il yo’lda ketayotib, 3 ta olma topib olishdi. Ularning har biriga bittadan olma tegdi. Bu qanday sodir bo’ldi?",
+        "Ular aslida uch kishi: bola, ota va bobo edi."
+    ],
+    [
+        "66 — Tuyaqush o’zini qush deb atay oladimi?",
+        "Yo’q, chunki u gapira olmaydi."
+    ],
+    [
+        "67 — Qaysi o’simlik yig’ib olinganidan so’ng, uning 90% yoqib yuboriladi, 10% esa tashlab yuboriladi.",
+        "Tamaki."
+    ],
+    [
+        "68 — Professor do’stlarini o’zining maxsus salati bilan mehmon qilishni niyat qildi. Buning uchun unga: 3 ta bulg’or qalampiri va huddi shuncha pomidor, pomidorlardan ko’ra kamroq, ammo piyozdan ko’proq bodring kerak bo’ladi. Professor jami bo’lib necha dona turli xil sabzavotlar ishlatadi?",
+        "9 ta."
+    ],
+    [
+        "69 — Undan qancha olsangiz, shuncha kattalashib boraveradi. U nima?",
+        "Chuqur."
+    ],
+    [
+        "70 — Meni hamma toptaydi, lekin men yanada yaxshiroq bo’lib boraman.",
+        "Yo’lak."
+    ],
+    [
+        "71 — Yomg’irda quyon qanday daraxt tagida turishi mumkin?",
+        "Ho’l daraxt."
+    ],
+    [
+        "72 — 5 ta yigit 1 ta etikda qolishi uchun nima qilish kerak?",
+        "Ularning bittadan etigini yechib olish kerak."
+    ],
+    [
+        "73 — Qaysi yegulikni pishirishda qancha tuz solsa ham, u sho’r bo’lib ketmaydi?",
+        "Qaynatilgan tuxumni."
+    ],
+    [
+        "74 — Shifoxonadan to’rt muchchasi sog’ bo’lgan odamni qo’lda ko’tarib olib chiqishdi. U mutlaqo sog’lom bo’lsa, nega ko’tarib olib chiqishmoqda?",
+        "Bu odam yangi tug’ilgan chaqaloq edi."
+    ],
+    [
+        "75 — Qafasda 3 ta quyon bor edi. Uchta qizcha ularga bittadan quyon berishlarini so’rashdi. Ularga so’raganlaridek bittadan quyon berildi. Lekin baribir qafasda bitta quyon qoldi. Buni qanday tushuntirish mumkin?",
+        "Qizchalarning biriga quyon qafasi bilan birga berilgan."
+    ],
+    [
+        "76 — 1 dan 100 gacha sonlar orasida nechta 9 bor?",
+        "20 ta."
+    ],
+    [
+        "77 — Choyni qaysi qo’l bilan aralashtirish kerak?",
+        "Choyni qo’l bilan emas, balki qoshiqcha bilan aralashtirish maqsadga muvofiq."
+    ],
+    [
+        "78 — 1 kg tosh og’irmi, 1 kg paxta?",
+        "Teng."
+    ],
+    [
+        "79 — Balandligi 10 metr keladigan narvondan sakrab, umuman jarohat olmaslik uchun nima qilish kerak?",
+        "Narvonning eng quyi pog’onasidan sakrash kerak."
+    ],
+    [
+        "80 — Hamma narsani ko’rayotganda uni ko’rmaysiz. Hech narsani ko’rmaganda esa uni ko’ra olasiz. U nima?",
+        "Qorong’ulik."
+    ],
+    [
+        "81 — Merining otasining beshta qizi bor. Ularning ismlari Chacha, Cheche, Chichi, Chocho… Beshinchi qizining ismi nima bo’lishi mumkin?",
+        "Albatta Meri"
+    ],
+    [
+        "82 — Ular qanchalik ko’payib ketsa, vazni shunchalik kamayib boraveradi.",
+        "G’ovak."
+    ],
+    [
+        "83 — Avtobusda 15 yo’lovchi ketayotgan edi. Birinchi bekatda 3 yo’lovchi chiqdi, keyingi bekatda 2 yo’lovchi tushib qolib, 4 yo’lovchi chiqdi, keyingi bekatda 4 yo’lovchi tushib 7 yo’lovchi chiqdi, keyingi bekatda esa 1 yo’lovchi tushib 6 yo’lovchi chiqdi. Avtobus necha bekat yurdi?",
+        "4 bekat."
+    ],
+    [
+        "84 — 16 qavatli uyda bir liliput (pakana) odam yashaydi. U har kuni ertalab ishga ketayotib liftda pastga tushib, so’ng ishga ketadi, ishdan qaytayotganda esa 10- qavatgacha liftda ko’tarilib, u yog’iga piyoda ketadi. U nimaga shunday qiladi?",
+        "Chunki uning bo’yi 10- qavat tugmasigacha yetadi xolos."
+    ],
+    [
+        "85 — O’rdaklar qator bo’lib suv ichgani ketishayotgan edi. Ulardan biri oldinga qarab 7 ta boshni ortiga qarab 12 ta panjani ko’rdi. O’rdaklar nechta?",
+        "14 ta. 7 bosh 7 o’rdak, 12 panja 6 o’rdak, qaragan o’rdak bilan xisoblanganda shuncha chiqadi."
+    ],
+    [
+        "86 — Stol ustida ikkita tanga turibdi. Ularning jami qiymati 3 so’m. Lekin ularning biri 1 so’mlik tanga emas. Tangalar necha so’mlik?",
+        "1 so’m va 2 so’mlik tangalar. Ulardan biri aniq 1 so’mlik emas, lekin ikkinchisi 1 so’mlik."
+    ],
+    [
+        "87 — Ikkita soat taqib yuradigan kasb egalari kimlar?",
+        "Futbol hakamlari."
+    ],
+    [
+        "88 — Men suvman va suv yuzida suzib yuribman. Men kimman?",
+        "Muz."
+    ],
+    [
+        "89 — Elektropoezd sharqqa tomon 80 km/soat tezlik bilan harakatlanmoqda. Shamol esa sharqdan g’arbga qarab 15 km/soat tezlik bilan esmoqda. Poyezddan chiqayotgan tutun qaysi tomonga qarab harakatlanadi?",
+        "Elektropoezdlar tutun chiqarmaydi (albatta yong’in chiqmasa)."
+    ],
+    [
+        "90 — Xomligida iste’mol qilinmaydi, qaynatilganda tashlab yuboriladi.",
+        "Lavr yaprog’i."
+    ],
+    [
+        "91 — Juda och qoringa nechta tuxum yeyish mumkin?",
+        "1 ta, keyingilari to’q qoringa yeyiladi."
+    ],
+    [
+        "92 — Sen notanish xonaga kirib qolding. U erda benzin va gaz bilan yonadigan chiroqlar bor ekan. Sen birinchi bo’lib nimani yoqishing kerak?",
+        "Gugurt yoki yondirgichni."
+    ],
+    [
+        "93 — Bir vaqtlar Nissa shahrida eng chidamli chekuvchi bo’yicha konkurs o’tkazilgandi. Ishtirokchilardan biri ketma-ket 60 dona sigareta chekib, rekord o’rnatdi, lekin sovrin olmadi. Nega?",
+        "U sigaretadan zaxarlanish tufayli vafot etgandi."
+    ],
+    [
+        "94 — Siz mashinaga o’tirdingiz va uni haydamoqchisiz, lekin oyoqlaringiz pedallarga yetmayapti. Bu holda nima qilish kerak?",
+        "Yo’lovchi o’rindig’idan haydovchining o’rindig’iga o’tish kerak."
+    ],
+    [
+        "95 — Bir kunda bitta tug’ruqxonada ikki o’g’il farzand dunyoga keldi. Ularning ota-onalari bitta ko’p qavatli uyda yashashardi. Ikkita bola bitta bog’chaga, bitta maktabga borishdi, bir sinfda o’qishdi. Lekin hech qachon bir-birini ko’rmadi. Bu qanday qilib bo’lishi mumkin?",
+        "Bolalarning ko’zi ojiz edi."
+    ],
+    [
+        "96 — Saudiya Arabistoni mamlakatida nechta daryo o’rin olgan?",
+        "Ushbu mamlakatda 1 ta ham daryo mavjud emas."
+    ],
+    [
+        "97 — Bir kishi sochini oldirib bo’lib qancha bo’ladi dedi. Usta esa g’aladanda necha so’m bo’lsa shuncha tashlab 2000 so’m oling dedi .Keyingi odamga ham shu qaytarildi va 3- odam ham g’aladanda qancha bo’lsa shuncha pul tashlab 2000 so’m olib chiqib ketdi va galadanda pultugadi. Dastlab g’aladonda necha so’m bor bo’lgan?",
+        "1750 bor bo’lgan. 1- kishi shuncha tashlasa 3500 bo’ladi, 2000 qaytarib olsa 1500 qoladi. 2- kishi 1500 tashlasa 3000 bo’ladi 2000 qaytarib olsa 1000 qoladi. 3- kishi 1000 tashasa 2000 bo’ladi, 2000 qaytarib olsa pul qolmaydi."
+    ],
+    [
+        "98 — Bir kuni shofyor o’z mashinasining g’ildiraklaridan birini dami chiqib qolganini ko’rdi, lekin parvo qilmay uydan chiqib ketdi va qiyinchiliksiz yurib kechga tomon qaytib keldi. U buni qanday uddaladi?",
+        "Dami chiqqan g’ildirak zahiradagisi edi."
+    ],
+    [
+        "99 — Bir oilada 5 qiz bor ekan. 1- kitob o’qiyapti, 2- shaxmat o’ynayapti, 3- ovqat yeyapti, 4- yig’ishtiryapti, 5- nima qilyapti?",
+        "Shaxmat o’ynayapti."
+    ],
+    [
+        "100 — Futbolda “Quruq barg” degan termin bor, qaysi holda ishlatiladi?",
+        "Hech kimga tekkizmay gol urilsa"
+    ],
+    [
+        "101 — Shifokorlarning ta’kidlashlaricha, ushbu soha vakillari chap quloqlarining yaxshi eshitmasligidan ko’p shikoyat qilishadi. Ushbu soha vakillarini toping.",
+        "Skripkachilar."
+    ],
+    [
+        "102 — Qanday holda 12 sonini teng ikkiga bo’lsak, 7 chiqadi?",
+        "12 soni rim raqamida XII bo’lganda yarmi VII bo’ladi."
+    ],
+    [
+        "103 — O’rmonga qachongacha kirish mumkin?",
+        "O’rtasiga borgungacha, undan keyin o’rmondan chiqish boshlanadi."
+    ],
+    [
+        "104 — It, jirafa, tuya. Bularning qanday umumiy xususiyatlari bor?",
+        "Ular qadam olishni chap oyoqdan boshlaydi."
+    ],
+    [
+        "105 — Nimani chap qo’l bilan ushlash mumkin, lekin o’ng qo’l bilan umuman ushlab bo’lmaydi?",
+        "O’ng qo’lning tirsagini."
+    ],
+    [
+        "106 — Siz mashinaga o’tirdingiz va uni haydamoqchisiz, lekin oyoqlaringiz pedallarga yetmayapti. Bu holda nima qilish kerak?",
+        "Yo’lovchi o’rindig’idan haydovchi o’rindig’iga o’tish kerak."
+    ],
+    [
+        "107 — U sizniki, lekin undan sizdan ko’ra boshqalar ko’proq foydalanishadi.",
+        "Bu o’z ismingiz"
+    ],
+    [
+        "108 — Mashxur sehrgar xonaning o’rtasiga shisha qo’yib, unga kira olishini aytdi. Bu qanday qilib mumkin?",
+        "Xonaga barcha kira oladi, shisha qo’yish shart emas."
+    ],
+    [
+        "109 — Ot o’z bo’yniga bog’langan qo’ng’iroqning ovozini eshitmaslik uchun necha km/soat tezlikda chopishi kerak?",
+        "0 km/soat tezlikda."
+    ],
+    [
+        "110 — Ular qanchalik ko’p bo’lsa, vazni shunchalik kamayib ketaveradi?",
+        "G’ovaklar."
+    ],
+    [
+        "111 — Ikki kun ketma-ket yomg’ir yog’ishi mumkinmi?",
+        "Yo’q, kunlarni tun ajratib turadi."
+    ],
+    [
+        "112 — U savol emas, lekin unga javob berish kerak.",
+        "Qo’ng’iroq yoki eshik jiringlashi."
+    ],
+    [
+        "113 — Qo’llarda 10 ta barmoq bor. 10 ta qo’lda nechta barmoq bor?",
+        "50 ta."
+    ],
+    [
+        "114 — Yuliy Sezar o’z qo’shinlariga qalqon va qilichlarini qimmatbaho narsalar bilan bezatishni buyurgan. Nima uchun?",
+        "Shu holda qo’shinlari o’z qurol-aslahalarini osonlikcha tashlab qochishmagan."
+    ],
+    [
+        "115 — Yog’ochni 12 bo’lakka bo’lish uchun uni necha marta arralash kerak?",
+        "11 marta."
+    ],
+    [
+        "116 — Traktorchining Farhod ismli akasi bor edi, lekin Farhodning ukasi yo’q edi. Buning sababi qanday?",
+        "Traktorchi Farhodning singlisi edi."
+    ],
+    [
+        "117 — Qaysi oyda 28 kun bor?",
+        "Barcha 12 oyda 28 kun bor."
+    ],
+    [
+        "118 — Bola choynak va uning qopqog’i uchun 11 so’m pul to’ladi. Choynakning narxi qopqog’iga qaraganda 10 so’m qimmat. Qopqoqning narxi necha pul?",
+        "50 tiyin. (50 tiyin + 10 so’m = choynakning narxi)."
+    ],
+    [
+        "119 — Ota va o’g’il avto halokatga uchrashdi. Otasi shu joyning o’zidayoq halok bo’ldi, o’g’lini esa kasalxonaga yuborishdi. Operasiya vaqtida xirurg bolani ko’rib: «Voy xudoyim-ey, bu mening o’g’lim-ku-deb baqirib yubordi. Shunday ham bo’lishi mumkinmi?",
+        "Ha, bu uning onasi."
+    ],
+    [
+        "120 — Qanday idishda ovqat yeb bo’lmaydi?",
+        "Bo’sh idishda."
+    ],
+    [
+        "121 — Qaysi yegulikni pishirish vaqtida qancha tuz solsangiz ham sho’r bo’lib ketmaydi?",
+        "Qaynatilgan tuxum."
+    ],
+    [
+        "122 — Undan qanchalik ko’p olaversangiz, u shunchalik kattalashib boraveradi. U nima?",
+        "Chuqur."
+    ],
+    [
+        "123 — Yarimta olma nimaga o’xshab ketadi?",
+        "O’zining ikkinchi yarimiga."
+    ],
+    [
+        "124 — Bir inson samolyotdan parashyutsiz sakrab, qattiq yerga hech bir jarohat olmasdan tushdi. Unga hech kim yordam bermadi. Buni qanday izohlash mumkin?",
+        "U sakragan samolyot hali havoga ko’tarilmagan edi."
+    ],
+    [
+        "125 — Uchta toshbaqa sudralib bormoqda.1-toshbaqa: mening ortimdan ikkita toshbaqa sudralib kelmoqda.2-toshbaqa: mening oldimda ham, ortimda ham bittadan toshbaqa sudralib kelmoqda.3-toshbaqa: mening oldimda ikkita toshbaqa, ortimdan esa bitta toshbaqa sudralib kelmoqda. Bu qanday qilib bo’lishi mumkin?",
+        "Toshbaqalar aylana bo’ylab sudralib yurishibdi."
+    ]
+]
