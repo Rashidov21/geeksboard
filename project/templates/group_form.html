@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} | GeeksBoard{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <div class="flex items-center justify-between">
+        <div>
+            <p class="text-xs uppercase text-slate-500">Guruh boshqaruvi</p>
+            <h2 class="text-3xl font-semibold text-slate-800">{{ title }}</h2>
+        </div>
+        <a href="{% url 'group_list' %}" class="px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-sm font-medium">Orqaga</a>
+    </div>
+</div>
+
+<div class="max-w-2xl bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+    {% if form.errors %}
+    <div class="mb-4 p-4 rounded-lg bg-red-50 text-red-700 border border-red-200">
+        <p class="font-semibold mb-2">Quyidagi xatolarni tuzating:</p>
+        <ul class="list-disc list-inside text-sm">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        
+        <div>
+            <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-slate-700 mb-1">{{ form.name.label }}</label>
+            {{ form.name }}
+            {% if form.name.help_text %}
+            <p class="text-xs text-slate-500 mt-1">{{ form.name.help_text }}</p>
+            {% endif %}
+        </div>
+
+        <div>
+            <label for="{{ form.subject.id_for_label }}" class="block text-sm font-medium text-slate-700 mb-1">{{ form.subject.label }}</label>
+            {{ form.subject }}
+        </div>
+
+        <div>
+            <label for="{{ form.schedule.id_for_label }}" class="block text-sm font-medium text-slate-700 mb-1">{{ form.schedule.label }}</label>
+            {{ form.schedule }}
+        </div>
+
+        <div>
+            <label for="{{ form.start_date.id_for_label }}" class="block text-sm font-medium text-slate-700 mb-1">{{ form.start_date.label }}</label>
+            {{ form.start_date }}
+        </div>
+
+        <div class="flex gap-3 pt-4">
+            <button type="submit" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg py-2 transition">
+                Saqlash
+            </button>
+            <a href="{% url 'group_list' %}" class="flex-1 text-center border border-slate-200 text-slate-700 rounded-lg py-2 font-semibold hover:bg-slate-50 transition">
+                Bekor qilish
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+

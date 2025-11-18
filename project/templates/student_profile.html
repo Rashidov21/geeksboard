@@ -10,7 +10,18 @@
             <h2 class="text-3xl font-semibold text-slate-800">{{ student.full_name }}</h2>
             <p class="text-sm text-slate-500 mt-1">{{ student.group.name }}</p>
         </div>
-        <a href="{% url 'student_list' student.group.id %}" class="px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-sm font-medium">Guruhga qaytish</a>
+        <div class="flex gap-2">
+            <a href="{% url 'student_edit' student.id %}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm font-medium">
+                ✏️ Tahrirlash
+            </a>
+            <form method="post" action="{% url 'student_delete' student.id %}" class="inline" onsubmit="return confirm('Talabani o\'chirishni xohlaysizmi? Barcha ball yozuvlari ham o\'chiriladi.');">
+                {% csrf_token %}
+                <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-sm font-medium">
+                    🗑️ O'chirish
+                </button>
+            </form>
+            <a href="{% url 'student_list' student.group.id %}" class="px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-sm font-medium">Guruhga qaytish</a>
+        </div>
     </div>
 </div>
 
@@ -36,7 +47,12 @@
 </div>
 
 <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
-    <h3 class="text-xl font-semibold text-slate-800 mb-4">Ball tarixi</h3>
+    <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-semibold text-slate-800">Ball tarixi</h3>
+        <a href="{% url 'student_list' student.group.id %}" class="px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm font-medium">
+            + Yangi ball qo'shish
+        </a>
+    </div>
     
     {% if points %}
     <div class="overflow-x-auto">
@@ -83,10 +99,14 @@
                         {% endif %}
                     </td>
                     <td class="py-3 px-4 text-center">
-                        <form method="post" action="{% url 'delete_point' point.id %}" class="inline" onsubmit="return confirm('Bu ball yozuvini o\'chirishni xohlaysizmi?');">
-                            {% csrf_token %}
-                            <button type="submit" class="text-red-600 hover:text-red-700 text-sm font-medium">O'chirish</button>
-                        </form>
+                        <div class="flex gap-2 justify-center">
+                            <a href="{% url 'point_edit' point.id %}" class="text-accent hover:text-black text-sm font-medium">Tahrirlash</a>
+                            <span class="text-slate-300">|</span>
+                            <form method="post" action="{% url 'delete_point' point.id %}" class="inline" onsubmit="return confirm('Bu ball yozuvini o\'chirishni xohlaysizmi?');">
+                                {% csrf_token %}
+                                <button type="submit" class="text-red-600 hover:text-red-700 text-sm font-medium">O'chirish</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}

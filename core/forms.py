@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 
-from .models import Mentor, PointCategory, StudentPoint
+from .models import Group, Mentor, PointCategory, Student, StudentPoint
 
 User = get_user_model()
 
@@ -33,19 +33,64 @@ class MentorRegistrationForm(UserCreationForm):
         return user
 
 
+class GroupForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = ['name', 'subject', 'schedule', 'start_date']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30', 'placeholder': 'Guruh nomi'}),
+            'subject': forms.TextInput(attrs={'class': 'w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30', 'placeholder': 'Fan nomi'}),
+            'schedule': forms.TextInput(attrs={'class': 'w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30', 'placeholder': 'Dars jadvali'}),
+            'start_date': forms.DateInput(attrs={'class': 'w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30', 'type': 'date'}),
+        }
+        labels = {
+            'name': 'Guruh nomi',
+            'subject': 'Fan',
+            'schedule': 'Jadval',
+            'start_date': 'Boshlanish sanasi',
+        }
+
+
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ['full_name', 'birth_date', 'phone', 'parent_phone', 'notes']
+        widgets = {
+            'full_name': forms.TextInput(attrs={'class': 'w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30', 'placeholder': 'To\'liq ism'}),
+            'birth_date': forms.DateInput(attrs={'class': 'w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30', 'type': 'date'}),
+            'phone': forms.TextInput(attrs={'class': 'w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30', 'placeholder': 'Talaba telefoni'}),
+            'parent_phone': forms.TextInput(attrs={'class': 'w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30', 'placeholder': 'Ota-ona telefoni'}),
+            'notes': forms.Textarea(attrs={'class': 'w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30', 'rows': 3, 'placeholder': 'Qo\'shimcha eslatmalar'}),
+        }
+        labels = {
+            'full_name': 'To\'liq ism',
+            'birth_date': 'Tug\'ilgan sana',
+            'phone': 'Talaba telefoni',
+            'parent_phone': 'Ota-ona telefoni',
+            'notes': 'Eslatmalar',
+        }
+
+
 class StudentPointForm(forms.ModelForm):
     class Meta:
         model = StudentPoint
         fields = ['category', 'score', 'reason', 'note']
         widgets = {
-            'reason': forms.TextInput(attrs={'placeholder': 'Why points were given/removed'}),
-            'note': forms.TextInput(attrs={'placeholder': 'Optional note'}),
+            'category': forms.Select(attrs={'class': 'w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30'}),
+            'score': forms.NumberInput(attrs={'class': 'w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30', 'min': -10, 'max': 10, 'step': 1}),
+            'reason': forms.TextInput(attrs={'placeholder': 'Ball berilgan/olib tashlangan sabab', 'class': 'w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30'}),
+            'note': forms.TextInput(attrs={'placeholder': 'Ixtiyoriy eslatma', 'class': 'w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30'}),
+        }
+        labels = {
+            'category': 'Kategoriya',
+            'score': 'Ball',
+            'reason': 'Sabab',
+            'note': 'Eslatma',
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['category'].queryset = PointCategory.objects.filter(is_active=True)
-        self.fields['score'].widget.attrs.update({'min': -10, 'max': 10, 'type': 'number', 'step': 1})
-        self.fields['score'].help_text = 'Positive to add points, negative to remove points'
+        self.fields['score'].help_text = 'Musbat - qo\'shish, manfiy - olib tashlash'
 
 

@@ -6,10 +6,10 @@
 <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border border-slate-100 p-8">
     <div class="flex items-center justify-between mb-6">
         <div>
-            <p class="text-xs uppercase text-slate-500">Category</p>
+            <p class="text-xs uppercase text-slate-500">Kategoriya</p>
             <h2 class="text-2xl font-semibold text-slate-800">{{ category.name }}</h2>
         </div>
-        <span class="px-3 py-1 text-xs font-semibold rounded-full bg-slate-100 text-slate-600">{{ mode|title }} mode</span>
+        <span class="px-3 py-1 text-xs font-semibold rounded-full bg-slate-100 text-slate-600">{{ mode|title }} rejim</span>
     </div>
 
     <div class="space-y-3">
@@ -18,16 +18,16 @@
         <p class="text-lg text-slate-700">{{ item.prompt }}</p>
         {% if item.correct_answer %}
         <details class="mt-4 bg-slate-50 border border-accent/20 rounded-xl p-4">
-            <summary class="cursor-pointer font-semibold text-accent">Reveal suggested answer</summary>
+            <summary class="cursor-pointer font-semibold text-accent">Tavsiya etilgan javobni ko'rsatish</summary>
             <p class="mt-2 text-slate-700">{{ item.correct_answer }}</p>
         </details>
         {% endif %}
     </div>
 
     <div class="mt-8 flex items-center gap-4">
-        <a href="{% url 'interactive_question' category.id %}?mode=random" class="flex-1 text-center bg-accent text-white py-3 rounded-lg font-semibold hover:bg-black">Next Random</a>
-        <a href="{% url 'interactive_question' category.id %}?mode=sequential" class="flex-1 text-center border border-accent/30 text-accent py-3 rounded-lg font-semibold hover:border-accent">Sequential</a>
-        <a href="{% url 'interactive_categories' %}" class="px-4 py-3 rounded-lg text-slate-500 border border-slate-200">Categories</a>
+        <a href="{% url 'interactive_question' category.id %}?mode=random" class="flex-1 text-center bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700">Keyingi tasodifiy</a>
+        <a href="{% url 'interactive_question' category.id %}?mode=sequential" class="flex-1 text-center border border-accent/30 text-accent py-3 rounded-lg font-semibold hover:border-accent">Ketma-ket</a>
+        <a href="{% url 'interactive_categories' %}" class="px-4 py-3 rounded-lg text-slate-500 border border-slate-200">Kategoriyalar</a>
     </div>
 </div>
 {% endblock %}

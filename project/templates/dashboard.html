@@ -64,15 +64,30 @@
 
 <div class="mt-10 grid gap-6 md:grid-cols-2">
     <div class="bg-white shadow-lg rounded-2xl p-6">
-        <h2 class="text-xl font-semibold text-slate-800 mb-4">Sizning guruhlaringiz</h2>
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-semibold text-slate-800">Sizning guruhlaringiz</h2>
+            <a href="{% url 'group_list' %}" class="text-sm text-accent hover:underline font-medium">Barchasini ko'rish →</a>
+        </div>
         <div class="space-y-4">
             {% for group in groups %}
-            <a href="{% url 'student_list' group.id %}" class="block border border-slate-100 hover:border-accent/30 rounded-xl p-4">
-                <p class="font-semibold text-slate-800">{{ group.name }}</p>
+            <div class="border border-slate-100 hover:border-accent/30 rounded-xl p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <a href="{% url 'student_list' group.id %}" class="font-semibold text-slate-800 hover:text-accent">
+                        {{ group.name }}
+                    </a>
+                    <div class="flex gap-2">
+                        <a href="{% url 'group_edit' group.id %}" class="text-xs text-slate-500 hover:text-accent" title="Tahrirlash">✏️</a>
+                    </div>
+                </div>
                 <p class="text-xs text-slate-500">{{ group.student_count }} ta talaba</p>
-            </a>
+            </div>
             {% empty %}
-            <p class="text-sm text-slate-500">Hali guruhlar tayinlanmagan.</p>
+            <div class="text-center py-4">
+                <p class="text-sm text-slate-500 mb-3">Hali guruhlar tayinlanmagan.</p>
+                <a href="{% url 'group_create' %}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm font-medium">
+                    + Yangi guruh yaratish
+                </a>
+            </div>
             {% endfor %}
         </div>
     </div>

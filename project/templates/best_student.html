@@ -24,12 +24,19 @@
     <h3 class="text-xl font-semibold text-slate-800 mb-4">To'liq reyting</h3>
     <div class="space-y-3">
         {% for student in students %}
-        <div class="flex items-center justify-between border border-slate-100 rounded-xl p-4">
+        <div class="flex items-center justify-between border border-slate-100 rounded-xl p-4 hover:bg-slate-50">
             <div>
-                <p class="font-semibold text-slate-800">{{ student.full_name }}</p>
+                <a href="{% url 'student_profile' student.id %}" class="font-semibold text-slate-800 hover:text-accent">
+                    {{ student.full_name }}
+                </a>
                 <p class="text-xs text-slate-500">{{ student.group.name }}</p>
             </div>
-            <span class="text-lg font-semibold text-accent">{{ student.month_total|default:0 }} ball</span>
+            <div class="flex items-center gap-3">
+                <span class="text-lg font-semibold text-accent">{{ student.month_total|default:0 }} ball</span>
+                <a href="{% url 'student_profile' student.id %}" class="px-3 py-1 text-xs bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                    Profil
+                </a>
+            </div>
         </div>
         {% empty %}
         <p class="text-sm text-slate-500">Ko'rsatish uchun talabalar yo'q.</p>

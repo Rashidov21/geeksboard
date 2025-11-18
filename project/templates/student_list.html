@@ -4,12 +4,19 @@
 
 {% block content %}
 <div class="mb-8">
-    <p class="text-xs uppercase text-slate-500">Guruh</p>
-    <div class="flex flex-wrap gap-3 items-center">
-        <h2 class="text-3xl font-semibold text-slate-800">{{ group.name }}</h2>
-        <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-sm">{{ students|length }} ta talaba</span>
+    <div class="flex items-center justify-between mb-4">
+        <div>
+            <p class="text-xs uppercase text-slate-500">Guruh</p>
+            <div class="flex flex-wrap gap-3 items-center">
+                <h2 class="text-3xl font-semibold text-slate-800">{{ group.name }}</h2>
+                <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-sm">{{ students|length }} ta talaba</span>
+            </div>
+            <p class="text-sm text-slate-500 mt-1">{{ group.subject|default:"Umumiy" }} &middot; {{ group.schedule|default:"Jadval belgilanmagan" }}</p>
+        </div>
+        <a href="{% url 'student_create' group.id %}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+            + Yangi talaba
+        </a>
     </div>
-    <p class="text-sm text-slate-500 mt-1">{{ group.subject|default:"Umumiy" }} &middot; {{ group.schedule|default:"Jadval belgilanmagan" }}</p>
 </div>
 
 <div class="grid gap-6 lg:grid-cols-2">
@@ -31,7 +38,7 @@
                 <p class="text-2xl font-bold text-accent">{{ student.total_points|default:0 }}</p>
             </div>
         </div>
-        <div class="space-y-2">
+        <div class="space-y-2 mb-3">
             {% for point in student.points.all|slice:":5" %}
             <div class="flex justify-between text-sm">
                 <span class="text-slate-600">{{ point.category.name }}</span>
@@ -43,6 +50,21 @@
             <p class="text-sm text-slate-500">Hali ballar yo'q.</p>
             {% endfor %}
         </div>
+        <div class="flex gap-2 pt-3 border-t border-slate-100">
+            <a href="{% url 'student_profile' student.id %}" class="flex-1 text-center text-xs bg-blue-50 text-blue-600 hover:bg-blue-100 font-medium py-1.5 rounded">👤 Profil</a>
+            <a href="{% url 'student_edit' student.id %}" class="flex-1 text-center text-xs text-slate-600 hover:text-accent font-medium py-1.5 rounded hover:bg-slate-50">✏️ Tahrirlash</a>
+            <form method="post" action="{% url 'student_delete' student.id %}" class="flex-1" onsubmit="return confirm('Talabani o\'chirishni xohlaysizmi? Barcha ball yozuvlari ham o\'chiriladi.');">
+                {% csrf_token %}
+                <button type="submit" class="w-full text-xs text-red-600 hover:text-red-700 font-medium py-1.5 rounded hover:bg-red-50">🗑️ O'chirish</button>
+            </form>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-span-2 text-center py-12">
+        <p class="text-sm text-slate-500 mb-4">Bu guruhda hali talabalar yo'q.</p>
+        <a href="{% url 'student_create' group.id %}" class="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+            + Birinchi talabani qo'shish
+        </a>
     </div>
     {% endfor %}
 </div>
@@ -87,7 +109,7 @@
             <input type="text" name="note" class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30" placeholder="Ixtiyoriy eslatma">
         </div>
         <div class="md:col-span-2">
-            <button type="submit" class="w-full bg-accent hover:bg-black text-white font-semibold rounded-lg py-2 transition">
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg py-2 transition">
                 Ballarni saqlash
             </button>
         </div>
