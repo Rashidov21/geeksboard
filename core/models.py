@@ -6,24 +6,24 @@ from django.utils import timezone
 User = get_user_model()
 
 
-class Teacher(models.Model):
+class Mentor(models.Model):
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
-        related_name='teacher_profile',
+        related_name='mentor_profile',
     )
+    phone = models.CharField(max_length=32, blank=True)
+    address = models.TextField(blank=True)
     center_name = models.CharField(max_length=255, blank=True)
     bio = models.TextField(blank=True)
-    phone = models.CharField(max_length=32, blank=True)
-    address = models.CharField(max_length=255, blank=True)
 
     def __str__(self) -> str:
         return self.user.get_full_name() or self.user.username
 
 
 class Group(models.Model):
-    teacher = models.ForeignKey(
-        Teacher,
+    mentor = models.ForeignKey(
+        Mentor,
         on_delete=models.CASCADE,
         related_name='groups',
     )
@@ -33,11 +33,11 @@ class Group(models.Model):
     start_date = models.DateField(null=True, blank=True)
 
     class Meta:
-        unique_together = ('teacher', 'name')
+        unique_together = ('mentor', 'name')
         ordering = ['name']
 
     def __str__(self) -> str:
-        return f'{self.name} ({self.teacher})'
+        return f'{self.name} ({self.mentor})'
 
     def student_count(self) -> int:
         return self.students.count()
@@ -139,10 +139,10 @@ class StudentPoint(models.Model):
         on_delete=models.CASCADE,
         related_name='student_points',
     )
-    score = models.SmallIntegerField()
+    score = models.SmallIntegerField(help_text='Can be positive (added) or negative (removed)')
+    reason = models.CharField(max_length=255, blank=True, help_text='Why points were given or removed')
     date = models.DateTimeField(default=timezone.now)
-    reason = models.CharField(max_length=255, blank=True)
-    is_cancelled = models.BooleanField(default=False)
+    note = models.CharField(max_length=255, blank=True)
 
     class Meta:
         ordering = ['-date']
@@ -151,8 +151,9 @@ class StudentPoint(models.Model):
         return f'{self.student} - {self.category} ({self.score})'
 
     def clean(self):
-        if abs(self.score) > self.category.max_score:
-            raise ValidationError('Score cannot exceed category max score range')
+        abs_score = abs(self.score)
+        if abs_score > self.category.max_score:
+            raise ValidationError(f'Absolute score cannot exceed category max score ({self.category.max_score})')
 
     def save(self, *args, **kwargs):
         self.full_clean()

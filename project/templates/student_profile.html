@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}{{ student.full_name }} | GeeksBoard{% endblock %}
+
+{% block content %}
+<div class="mb-10">
+    <div class="flex items-center justify-between">
+        <div>
+            <p class="text-xs uppercase text-slate-500">Talaba profili</p>
+            <h2 class="text-3xl font-semibold text-slate-800">{{ student.full_name }}</h2>
+            <p class="text-sm text-slate-500 mt-1">{{ student.group.name }}</p>
+        </div>
+        <a href="{% url 'student_list' student.group.id %}" class="px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-sm font-medium">Guruhga qaytish</a>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+        <p class="text-xs uppercase text-slate-500 mb-2">Jami ballar</p>
+        <p class="text-4xl font-bold text-accent">{{ total_points }}</p>
+    </div>
+    
+    {% if student.phone %}
+    <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+        <p class="text-xs uppercase text-slate-500 mb-2">Talaba telefoni</p>
+        <p class="text-lg font-semibold text-slate-800">{{ student.phone }}</p>
+    </div>
+    {% endif %}
+    
+    {% if student.parent_phone %}
+    <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+        <p class="text-xs uppercase text-slate-500 mb-2">Ota-ona telefoni</p>
+        <p class="text-lg font-semibold text-slate-800">{{ student.parent_phone }}</p>
+    </div>
+    {% endif %}
+</div>
+
+<div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+    <h3 class="text-xl font-semibold text-slate-800 mb-4">Ball tarixi</h3>
+    
+    {% if points %}
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead>
+                <tr class="border-b border-slate-200">
+                    <th class="text-left py-3 px-4 text-sm font-semibold text-slate-600">Sana va vaqt</th>
+                    <th class="text-left py-3 px-4 text-sm font-semibold text-slate-600">Kategoriya</th>
+                    <th class="text-left py-3 px-4 text-sm font-semibold text-slate-600">Sabab</th>
+                    <th class="text-center py-3 px-4 text-sm font-semibold text-slate-600">Ballar</th>
+                    <th class="text-left py-3 px-4 text-sm font-semibold text-slate-600">Eslatma</th>
+                    <th class="text-center py-3 px-4 text-sm font-semibold text-slate-600">Harakatlar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for point in points %}
+                <tr class="border-b border-slate-100 hover:bg-slate-50">
+                    <td class="py-3 px-4 text-sm text-slate-700">
+                        {{ point.date|date:"M d, Y" }}<br>
+                        <span class="text-xs text-slate-500">{{ point.date|date:"H:i" }}</span>
+                    </td>
+                    <td class="py-3 px-4">
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700">
+                            {{ point.category.name }}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4 text-sm text-slate-700">
+                        {% if point.reason %}
+                            {{ point.reason }}
+                        {% else %}
+                            <span class="text-slate-400">—</span>
+                        {% endif %}
+                    </td>
+                    <td class="py-3 px-4 text-center">
+                        <span class="text-lg font-semibold {% if point.score > 0 %}text-emerald-600{% elif point.score < 0 %}text-red-600{% else %}text-slate-600{% endif %}">
+                            {% if point.score > 0 %}+{% endif %}{{ point.score }}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4 text-sm text-slate-600">
+                        {% if point.note %}
+                            {{ point.note }}
+                        {% else %}
+                            <span class="text-slate-400">—</span>
+                        {% endif %}
+                    </td>
+                    <td class="py-3 px-4 text-center">
+                        <form method="post" action="{% url 'delete_point' point.id %}" class="inline" onsubmit="return confirm('Bu ball yozuvini o\'chirishni xohlaysizmi?');">
+                            {% csrf_token %}
+                            <button type="submit" class="text-red-600 hover:text-red-700 text-sm font-medium">O'chirish</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-sm text-slate-500 text-center py-8">Hali ball yozuvlari yo'q.</p>
+    {% endif %}
+</div>
+{% endblock %}
+

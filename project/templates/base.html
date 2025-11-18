@@ -27,18 +27,18 @@
     <div class="bg-white shadow-md">
         <div class="container mx-auto px-6 py-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
-                <p class="text-xs uppercase tracking-widest text-slate-500">Teacher Platform</p>
+                <p class="text-xs uppercase tracking-widest text-slate-500">Mentor Platformasi</p>
                 <h1 class="text-2xl font-semibold text-accent">Geeks Board</h1>
             </div>
             {% if user.is_authenticated %}
             <nav class="flex flex-wrap gap-3 text-sm text-slate-600">
-                <a href="{% url 'dashboard' %}" class="px-3 py-2 rounded-md hover:bg-accent/10 text-accent">Dashboard</a>
-                <a href="{% url 'group_list' %}" class="px-3 py-2 rounded-md hover:bg-accent/10 text-accent">Groups</a>
-                <a href="{% url 'best_student' %}" class="px-3 py-2 rounded-md hover:bg-accent/10 text-accent">Best Student</a>
-                <a href="{% url 'interactive_categories' %}" class="px-3 py-2 rounded-md hover:bg-accent/10 text-accent">Interactive Tools</a>
+                <a href="{% url 'dashboard' %}" class="px-3 py-2 rounded-md hover:bg-accent/10 text-accent">Boshqaruv paneli</a>
+                <a href="{% url 'group_list' %}" class="px-3 py-2 rounded-md hover:bg-accent/10 text-accent">Guruhlar</a>
+                <a href="{% url 'best_student' %}" class="px-3 py-2 rounded-md hover:bg-accent/10 text-accent">Eng yaxshi talaba</a>
+                <a href="{% url 'interactive_categories' %}" class="px-3 py-2 rounded-md hover:bg-accent/10 text-accent">Interaktiv vositalar</a>
                 <form action="{% url 'logout' %}" method="post" class="inline">
                     {% csrf_token %}
-                    <button class="px-3 py-2 rounded-md bg-red-50 text-red-500 hover:bg-red-100">Logout</button>
+                    <button class="px-3 py-2 rounded-md bg-red-50 text-red-500 hover:bg-red-100">Chiqish</button>
                 </form>
             </nav>
             {% endif %}

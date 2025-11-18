@@ -5,15 +5,15 @@
 {% block content %}
 <div class="grid gap-6 md:grid-cols-3">
     <div class="bg-white shadow-lg rounded-2xl p-6 border-t-4 border-accent">
-        <p class="text-sm uppercase text-slate-500">Groups</p>
+        <p class="text-sm uppercase text-slate-500">Guruhlar</p>
         <p class="text-4xl font-semibold text-slate-900">{{ stats.group_count }}</p>
     </div>
     <div class="bg-white shadow-lg rounded-2xl p-6 border-t-4 border-emerald-500">
-        <p class="text-sm uppercase text-slate-500">Students</p>
+        <p class="text-sm uppercase text-slate-500">Talabalar</p>
         <p class="text-4xl font-semibold text-slate-900">{{ stats.student_count }}</p>
     </div>
     <div class="bg-white shadow-lg rounded-2xl p-6 border-t-4 border-amber-500">
-        <p class="text-sm uppercase text-slate-500">Point Records</p>
+        <p class="text-sm uppercase text-slate-500">Ball yozuvlari</p>
         <p class="text-4xl font-semibold text-slate-900">{{ stats.point_entries }}</p>
     </div>
 </div>
@@ -21,8 +21,8 @@
 <div class="mt-10 grid gap-6 lg:grid-cols-3">
     <div class="lg:col-span-2 bg-white shadow-lg rounded-2xl p-6">
         <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xl font-semibold text-slate-800">Monthly Leaderboard</h2>
-            <span class="text-sm text-slate-500">{{ leaderboard|length }} highlighted</span>
+            <h2 class="text-xl font-semibold text-slate-800">Oylik reyting</h2>
+            <span class="text-sm text-slate-500">{{ leaderboard|length }} ta ko'rsatilgan</span>
         </div>
         <div class="space-y-3">
             {% for student in leaderboard %}
@@ -31,27 +31,32 @@
                     <p class="font-semibold text-slate-800">{{ student.full_name }}</p>
                     <p class="text-xs text-slate-500">{{ student.group.name }}</p>
                 </div>
-                <span class="text-lg font-semibold text-accent">{{ student.month_total|default:0 }} pts</span>
+                <span class="text-lg font-semibold text-accent">{{ student.month_total|default:0 }} ball</span>
             </div>
             {% empty %}
-            <p class="text-sm text-slate-500">No data yet for this month.</p>
+            <p class="text-sm text-slate-500">Bu oy uchun ma'lumot yo'q.</p>
             {% endfor %}
         </div>
     </div>
     <div class="bg-white shadow-lg rounded-2xl p-6">
-        <h2 class="text-xl font-semibold text-slate-800 mb-4">Recent Activity</h2>
+        <h2 class="text-xl font-semibold text-slate-800 mb-4">So'nggi faoliyat</h2>
         <div class="space-y-4 max-h-[320px] overflow-y-auto">
             {% for point in recent_points %}
             <div class="border border-slate-100 rounded-xl p-3">
                 <p class="text-sm font-semibold text-slate-700">{{ point.student.full_name }}</p>
                 <p class="text-xs text-slate-500 flex justify-between">
                     <span>{{ point.category.name }}</span>
-                    <span class="font-semibold text-emerald-600">+{{ point.score }}</span>
+                    <span class="font-semibold {% if point.score > 0 %}text-emerald-600{% elif point.score < 0 %}text-red-600{% else %}text-slate-600{% endif %}">
+                        {% if point.score > 0 %}+{% endif %}{{ point.score }}
+                    </span>
                 </p>
+                {% if point.reason %}
+                <p class="text-xs text-slate-400 mt-1">{{ point.reason }}</p>
+                {% endif %}
                 <p class="text-xs text-slate-400">{{ point.date }}</p>
             </div>
             {% empty %}
-            <p class="text-sm text-slate-500">No point entries yet.</p>
+            <p class="text-sm text-slate-500">Hali ball yozuvlari yo'q.</p>
             {% endfor %}
         </div>
     </div>
@@ -59,28 +64,28 @@
 
 <div class="mt-10 grid gap-6 md:grid-cols-2">
     <div class="bg-white shadow-lg rounded-2xl p-6">
-        <h2 class="text-xl font-semibold text-slate-800 mb-4">Your Groups</h2>
+        <h2 class="text-xl font-semibold text-slate-800 mb-4">Sizning guruhlaringiz</h2>
         <div class="space-y-4">
             {% for group in groups %}
             <a href="{% url 'student_list' group.id %}" class="block border border-slate-100 hover:border-accent/30 rounded-xl p-4">
                 <p class="font-semibold text-slate-800">{{ group.name }}</p>
-                <p class="text-xs text-slate-500">{{ group.student_count }} students</p>
+                <p class="text-xs text-slate-500">{{ group.student_count }} ta talaba</p>
             </a>
             {% empty %}
-            <p class="text-sm text-slate-500">No groups assigned yet.</p>
+            <p class="text-sm text-slate-500">Hali guruhlar tayinlanmagan.</p>
             {% endfor %}
         </div>
     </div>
     <div class="bg-white shadow-lg rounded-2xl p-6">
-        <h2 class="text-xl font-semibold text-slate-800 mb-4">Interactive Tools</h2>
+        <h2 class="text-xl font-semibold text-slate-800 mb-4">Interaktiv vositalar</h2>
         <div class="grid gap-4">
             {% for category in interactive_categories %}
             <a href="{% url 'interactive_question' category.id %}" class="block rounded-xl p-4 border border-slate-100 hover:border-accent/30">
                 <p class="text-sm uppercase text-slate-500">{{ category.name }}</p>
-                <p class="text-xs text-slate-400">{{ category.description|default:"Engage your class with quick questions." }}</p>
+                <p class="text-xs text-slate-400">{{ category.description|default:"Sinfingizni tezkor savollar bilan jalb qiling." }}</p>
             </a>
             {% empty %}
-            <p class="text-sm text-slate-500">Add interactive categories in the admin panel.</p>
+            <p class="text-sm text-slate-500">Admin panelida interaktiv kategoriyalarni qo'shing.</p>
             {% endfor %}
         </div>
     </div>

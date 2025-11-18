@@ -4,26 +4,33 @@
 
 {% block content %}
 <div class="max-w-md mx-auto bg-white shadow-lg rounded-2xl p-8">
-    <h2 class="text-2xl font-semibold text-slate-800 mb-2">Teacher Login</h2>
-    <p class="text-sm text-slate-500 mb-6">Access your dashboard to manage groups and points.</p>
+    <h2 class="text-2xl font-semibold text-slate-800 mb-2">Mentor kirishi</h2>
+    <p class="text-sm text-slate-500 mb-6">Guruhlar va ballarni boshqarish uchun boshqaruv paneliga kiring.</p>
 
     <form method="post" class="space-y-4">
         {% csrf_token %}
         {{ form.non_field_errors }}
         <div>
-            <label class="block text-sm font-medium text-slate-600 mb-1" for="id_username">Username</label>
+            <label class="block text-sm font-medium text-slate-600 mb-1" for="id_username">Foydalanuvchi nomi</label>
             <input type="text" name="username" id="id_username" class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30" required value="{{ form.username.value|default_if_none:'' }}">
             {{ form.username.errors }}
         </div>
         <div>
-            <label class="block text-sm font-medium text-slate-600 mb-1" for="id_password">Password</label>
+            <label class="block text-sm font-medium text-slate-600 mb-1" for="id_password">Parol</label>
             <input type="password" name="password" id="id_password" class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30" required>
             {{ form.password.errors }}
         </div>
-        <button type="submit" class="w-full bg-accent hover:bg-black text-white font-semibold rounded-lg py-2 transition">
-            Sign in
+        <button type="submit" class="w-full bg-primary hover:bg-black text-white font-semibold rounded-lg py-2 transition">
+            Kirish
         </button>
     </form>
+    
+    <div class="mt-6 text-center">
+        <p class="text-sm text-slate-600">
+            Hisobingiz yo'qmi? 
+            <a href="{% url 'register' %}" class="text-accent hover:underline font-medium">Ro'yxatdan o'tish</a>
+        </p>
+    </div>
 </div>
 {% endblock %}
 

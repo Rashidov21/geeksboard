@@ -4,12 +4,12 @@
 
 {% block content %}
 <div class="mb-8">
-    <p class="text-xs uppercase text-slate-500">Group</p>
+    <p class="text-xs uppercase text-slate-500">Guruh</p>
     <div class="flex flex-wrap gap-3 items-center">
         <h2 class="text-3xl font-semibold text-slate-800">{{ group.name }}</h2>
-        <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-sm">{{ students|length }} students</span>
+        <span class="px-3 py-1 rounded-full bg-accent/10 text-accent text-sm">{{ students|length }} ta talaba</span>
     </div>
-    <p class="text-sm text-slate-500 mt-1">{{ group.subject|default:"General" }} &middot; {{ group.schedule|default:"Schedule TBD" }}</p>
+    <p class="text-sm text-slate-500 mt-1">{{ group.subject|default:"Umumiy" }} &middot; {{ group.schedule|default:"Jadval belgilanmagan" }}</p>
 </div>
 
 <div class="grid gap-6 lg:grid-cols-2">
@@ -17,11 +17,17 @@
     <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
         <div class="flex items-center justify-between mb-3">
             <div>
-                <p class="text-lg font-semibold text-slate-800">{{ student.full_name }}</p>
-                <p class="text-xs text-slate-500">{{ student.phone|default:"No phone" }}</p>
+                <a href="{% url 'student_profile' student.id %}" class="text-lg font-semibold text-slate-800 hover:text-accent">
+                    {{ student.full_name }}
+                </a>
+                <p class="text-xs text-slate-500">
+                    {% if student.phone %}{{ student.phone }}{% endif %}
+                    {% if student.parent_phone %} &middot; Ota-ona: {{ student.parent_phone }}{% endif %}
+                    {% if not student.phone and not student.parent_phone %}Aloqa ma'lumotlari yo'q{% endif %}
+                </p>
             </div>
             <div class="text-right">
-                <p class="text-xs uppercase text-slate-500">Total</p>
+                <p class="text-xs uppercase text-slate-500">Jami</p>
                 <p class="text-2xl font-bold text-accent">{{ student.total_points|default:0 }}</p>
             </div>
         </div>
@@ -29,10 +35,12 @@
             {% for point in student.points.all|slice:":5" %}
             <div class="flex justify-between text-sm">
                 <span class="text-slate-600">{{ point.category.name }}</span>
-                <span class="font-semibold text-emerald-600">+{{ point.score }}</span>
+                <span class="font-semibold {% if point.score > 0 %}text-emerald-600{% elif point.score < 0 %}text-red-600{% else %}text-slate-600{% endif %}">
+                    {% if point.score > 0 %}+{% endif %}{{ point.score }}
+                </span>
             </div>
             {% empty %}
-            <p class="text-sm text-slate-500">No points yet.</p>
+            <p class="text-sm text-slate-500">Hali ballar yo'q.</p>
             {% endfor %}
         </div>
     </div>
@@ -40,25 +48,25 @@
 </div>
 
 <div class="mt-10 bg-white rounded-2xl shadow-lg p-6 border border-slate-100 max-w-3xl">
-    <h3 class="text-xl font-semibold text-slate-800 mb-4">Assign Points</h3>
+    <h3 class="text-xl font-semibold text-slate-800 mb-4">Ball berish</h3>
     <form method="post" class="grid gap-4 md:grid-cols-2">
         {% csrf_token %}
         {% if form.errors %}
         <div class="md:col-span-2 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg p-3">
-            Please review the form fields and try again.
+            Forma maydonlarini ko'rib chiqing va qayta urinib ko'ring.
         </div>
         {% endif %}
         <div class="md:col-span-2">
-            <label class="block text-sm font-medium text-slate-600 mb-1">Student</label>
+            <label class="block text-sm font-medium text-slate-600 mb-1">Talaba</label>
             <select name="student_id" class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30" required>
-                <option value="">Select student</option>
+                <option value="">Talabani tanlang</option>
                 {% for student in students %}
                 <option value="{{ student.id }}">{{ student.full_name }}</option>
                 {% endfor %}
             </select>
         </div>
         <div>
-            <label class="block text-sm font-medium text-slate-600 mb-1">Category</label>
+            <label class="block text-sm font-medium text-slate-600 mb-1">Kategoriya</label>
             <select name="category" class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30" required>
                 {% for category in categories %}
                 <option value="{{ category.id }}">{{ category.name }}</option>
@@ -66,16 +74,21 @@
             </select>
         </div>
         <div>
-            <label class="block text-sm font-medium text-slate-600 mb-1">Score (0-10)</label>
-            <input type="number" name="score" min="0" max="10" class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30" required>
+            <label class="block text-sm font-medium text-slate-600 mb-1">Ball (-10 dan +10 gacha)</label>
+            <input type="number" name="score" min="-10" max="10" step="1" class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30" required>
+            <p class="text-xs text-slate-500 mt-1">Musbat - qo'shish, manfiy - olib tashlash</p>
         </div>
         <div class="md:col-span-2">
-            <label class="block text-sm font-medium text-slate-600 mb-1">Note</label>
-            <input type="text" name="note" class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30" placeholder="Optional note">
+            <label class="block text-sm font-medium text-slate-600 mb-1">Sabab</label>
+            <input type="text" name="reason" class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30" placeholder="Ball berilgan/olib tashlangan sabab">
+        </div>
+        <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-slate-600 mb-1">Eslatma</label>
+            <input type="text" name="note" class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent/30" placeholder="Ixtiyoriy eslatma">
         </div>
         <div class="md:col-span-2">
             <button type="submit" class="w-full bg-accent hover:bg-black text-white font-semibold rounded-lg py-2 transition">
-                Save Points
+                Ballarni saqlash
             </button>
         </div>
     </form>
