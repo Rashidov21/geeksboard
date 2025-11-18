@@ -4,24 +4,24 @@
 
 {% block content %}
 <div class="mb-10">
-    <p class="text-xs uppercase text-slate-500">Monthly Recognition</p>
-    <h2 class="text-3xl font-semibold text-slate-800">Best Student - {{ month_label }}</h2>
-    <p class="text-sm text-slate-500 mt-1">Top performers across all of your groups.</p>
+    <p class="text-xs uppercase text-slate-500">Oylik tan olish</p>
+    <h2 class="text-3xl font-semibold text-slate-800">Eng yaxshi talaba - {{ month_label }}</h2>
+    <p class="text-sm text-slate-500 mt-1">Barcha guruhlaringizdagi eng yaxshi natijalar.</p>
 </div>
 
 {% if best %}
 <div class="bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 rounded-3xl p-6 shadow-lg mb-10">
-    <p class="text-xs uppercase text-amber-800">The Best Student</p>
+    <p class="text-xs uppercase text-amber-800">Eng yaxshi talaba</p>
     <h3 class="text-3xl font-bold text-amber-900">{{ best.full_name }}</h3>
     <p class="text-sm text-amber-900">{{ best.group.name }}</p>
-    <p class="text-4xl font-black text-amber-900 mt-2">{{ best.month_total|default:0 }} pts</p>
+    <p class="text-4xl font-black text-amber-900 mt-2">{{ best.month_total|default:0 }} ball</p>
 </div>
 {% else %}
-<p class="text-sm text-slate-500 mb-10">No data for this month.</p>
+<p class="text-sm text-slate-500 mb-10">Bu oy uchun ma'lumot yo'q.</p>
 {% endif %}
 
 <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
-    <h3 class="text-xl font-semibold text-slate-800 mb-4">Full Ranking</h3>
+    <h3 class="text-xl font-semibold text-slate-800 mb-4">To'liq reyting</h3>
     <div class="space-y-3">
         {% for student in students %}
         <div class="flex items-center justify-between border border-slate-100 rounded-xl p-4">
@@ -29,10 +29,10 @@
                 <p class="font-semibold text-slate-800">{{ student.full_name }}</p>
                 <p class="text-xs text-slate-500">{{ student.group.name }}</p>
             </div>
-            <span class="text-lg font-semibold text-accent">{{ student.month_total|default:0 }} pts</span>
+            <span class="text-lg font-semibold text-accent">{{ student.month_total|default:0 }} ball</span>
         </div>
         {% empty %}
-        <p class="text-sm text-slate-500">No students to display.</p>
+        <p class="text-sm text-slate-500">Ko'rsatish uchun talabalar yo'q.</p>
         {% endfor %}
     </div>
 </div>
