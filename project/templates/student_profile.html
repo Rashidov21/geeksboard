@@ -11,6 +11,9 @@
             <p class="text-sm text-slate-500 mt-1">{{ student.group.name }}</p>
         </div>
         <div class="flex gap-2">
+            <a href="{% url 'certificate_view' student.id %}" class="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition text-sm font-medium">
+                🏆 Sertifikat yuklab olish
+            </a>
             <a href="{% url 'student_edit' student.id %}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm font-medium">
                 ✏️ Tahrirlash
             </a>
@@ -25,12 +28,94 @@
     </div>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+{% if motivational_message %}
+<div class="mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-4">
+    <div class="flex items-start gap-3">
+        <span class="text-2xl">💬</span>
+        <div>
+            <p class="text-sm font-semibold text-blue-900 mb-1">Motivatsion xabar</p>
+            <p class="text-sm text-blue-800">{{ motivational_message }}</p>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
     <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
         <p class="text-xs uppercase text-slate-500 mb-2">Jami ballar</p>
         <p class="text-4xl font-bold text-accent">{{ total_points }}</p>
+        {% if trend.direction == 'up' %}
+            <p class="text-xs text-emerald-600 mt-1">↑ {{ trend.change_percent|floatformat:1 }}% o'sdi</p>
+        {% elif trend.direction == 'down' %}
+            <p class="text-xs text-red-600 mt-1">↓ {{ trend.change_percent|floatformat:1 }}% kamaydi</p>
+        {% endif %}
     </div>
     
+    <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+        <p class="text-xs uppercase text-slate-500 mb-2">Daraja</p>
+        <p class="text-2xl font-bold {% if level == 'Pro' %}text-purple-600{% elif level == 'Intermediate' %}text-blue-600{% else %}text-green-600{% endif %}">
+            {{ level }}
+        </p>
+        <p class="text-xs text-slate-500 mt-1">
+            {% if level_thresholds.next %}
+                Keyingi: {{ level_thresholds.next }}
+            {% else %}
+                Eng yuqori daraja
+            {% endif %}
+        </p>
+    </div>
+    
+    <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+        <p class="text-xs uppercase text-slate-500 mb-2">Keyingi darajaga</p>
+        <div class="mt-2">
+            <div class="w-full bg-slate-200 rounded-full h-3">
+                <div class="bg-gradient-to-r from-blue-500 to-indigo-600 h-3 rounded-full transition-all duration-300" style="width: {{ progress }}%"></div>
+            </div>
+            <p class="text-xs text-slate-600 mt-1">{{ progress|floatformat:1 }}%</p>
+        </div>
+    </div>
+    
+    <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+        <p class="text-xs uppercase text-slate-500 mb-2">Nishonlar</p>
+        <p class="text-3xl font-bold text-amber-600">{{ badges|length }}</p>
+        <p class="text-xs text-slate-500 mt-1">ta nishon</p>
+    </div>
+</div>
+
+{% if badges %}
+<div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100 mb-8">
+    <h3 class="text-xl font-semibold text-slate-800 mb-4">🏅 Nishonlar</h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {% for student_badge in badges %}
+        <div class="border border-slate-200 rounded-lg p-4 text-center hover:shadow-md transition">
+            <div class="text-4xl mb-2">{{ student_badge.badge.icon }}</div>
+            <p class="text-sm font-semibold text-slate-800">{{ student_badge.badge.name }}</p>
+            <p class="text-xs text-slate-500 mt-1">{{ student_badge.badge.description|truncatewords:8 }}</p>
+            <p class="text-xs text-slate-400 mt-2">{{ student_badge.earned_at|date:"M Y" }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if monthly_rewards %}
+<div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100 mb-8">
+    <h3 class="text-xl font-semibold text-slate-800 mb-4">🎁 Oylik mukofotlar</h3>
+    <div class="space-y-2">
+        {% for reward in monthly_rewards %}
+        <div class="flex items-center justify-between p-3 bg-amber-50 border border-amber-200 rounded-lg">
+            <div>
+                <p class="text-sm font-semibold text-amber-900">{{ reward.note|default:"Oylik mukofot" }}</p>
+                <p class="text-xs text-amber-700">{{ reward.date|date:"F Y" }}</p>
+            </div>
+            <span class="text-lg font-bold text-amber-600">+{{ reward.score }} ball</span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
     {% if student.phone %}
     <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
         <p class="text-xs uppercase text-slate-500 mb-2">Talaba telefoni</p>

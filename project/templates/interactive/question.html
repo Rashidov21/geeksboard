@@ -9,7 +9,16 @@
             <p class="text-xs uppercase text-slate-500">Kategoriya</p>
             <h2 class="text-2xl font-semibold text-slate-800">{{ category.name }}</h2>
         </div>
-        <span class="px-3 py-1 text-xs font-semibold rounded-full bg-slate-100 text-slate-600">{{ mode|title }} rejim</span>
+        <div class="flex items-center gap-3">
+            {% if item.time_limit %}
+            <div id="timer" class="px-4 py-2 bg-red-50 border border-red-200 rounded-lg">
+                <span class="text-sm font-semibold text-red-600">
+                    ⏱️ <span id="timer-display">{{ item.time_limit }}</span>s
+                </span>
+            </div>
+            {% endif %}
+            <span class="px-3 py-1 text-xs font-semibold rounded-full bg-slate-100 text-slate-600">{{ mode|title }} rejim</span>
+        </div>
     </div>
 
     <div class="space-y-3">
@@ -30,6 +39,36 @@
         <a href="{% url 'interactive_categories' %}" class="px-4 py-3 rounded-lg text-slate-500 border border-slate-200">Kategoriyalar</a>
     </div>
 </div>
+
+{% if item.time_limit %}
+<script>
+    let timeLeft = {{ item.time_limit }};
+    const timerDisplay = document.getElementById('timer-display');
+    const timerElement = document.getElementById('timer');
+    
+    const countdown = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = timeLeft;
+        
+        if (timeLeft <= 10) {
+            timerElement.classList.remove('bg-red-50', 'border-red-200');
+            timerElement.classList.add('bg-red-100', 'border-red-400');
+            timerDisplay.classList.add('animate-pulse');
+        }
+        
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            timerElement.classList.add('bg-red-200', 'border-red-500');
+            timerDisplay.textContent = 'Vaqt tugadi!';
+            // Optionally redirect or show message
+            setTimeout(() => {
+                alert('Vaqt tugadi! Keyingi savolga o\'tish.');
+                window.location.href = '{% url "interactive_question" category.id %}?mode={{ mode }}';
+            }, 1000);
+        }
+    }, 1000);
+</script>
+{% endif %}
 {% endblock %}
 
 

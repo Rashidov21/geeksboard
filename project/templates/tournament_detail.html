@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}{{ tournament.name }} | GeeksBoard{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <div class="flex items-center justify-between">
+        <div>
+            <p class="text-xs uppercase text-slate-500">Turnir</p>
+            <h2 class="text-3xl font-semibold text-slate-800">{{ tournament.name }}</h2>
+            <p class="text-sm text-slate-500 mt-1">{{ tournament.group.name }}</p>
+        </div>
+        <a href="{% url 'tournament_list' tournament.group.id %}" class="px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-sm font-medium">
+            ← Orqaga
+        </a>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <div class="lg:col-span-2 bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">🏆 Reyting jadvali</h3>
+        {% if participants %}
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="border-b border-slate-200">
+                        <th class="text-left py-3 px-4 text-sm font-semibold text-slate-600">#</th>
+                        <th class="text-left py-3 px-4 text-sm font-semibold text-slate-600">Talaba</th>
+                        <th class="text-center py-3 px-4 text-sm font-semibold text-slate-600">To'g'ri javoblar</th>
+                        <th class="text-center py-3 px-4 text-sm font-semibold text-slate-600">Ball</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for participant in participants %}
+                    <tr class="border-b border-slate-100 hover:bg-slate-50">
+                        <td class="py-3 px-4">
+                            <span class="px-2 py-1 rounded-full text-xs font-semibold
+                                {% if forloop.counter == 1 %}bg-yellow-100 text-yellow-700
+                                {% elif forloop.counter == 2 %}bg-slate-200 text-slate-700
+                                {% elif forloop.counter == 3 %}bg-orange-100 text-orange-700
+                                {% else %}bg-slate-100 text-slate-600{% endif %}">
+                                {{ forloop.counter }}
+                            </span>
+                        </td>
+                        <td class="py-3 px-4 font-medium text-slate-800">{{ participant.student.full_name }}</td>
+                        <td class="py-3 px-4 text-center text-slate-600">
+                            {{ participant.correct_answers }}/{{ participant.total_questions }}
+                        </td>
+                        <td class="py-3 px-4 text-center font-semibold text-accent">{{ participant.score }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-sm text-slate-500 text-center py-8">Hali ishtirokchilar yo'q.</p>
+        {% endif %}
+    </div>
+    
+    <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">Turnir ma'lumotlari</h3>
+        <div class="space-y-3 text-sm">
+            <div>
+                <p class="text-slate-500">Kategoriya</p>
+                <p class="font-semibold text-slate-800">{{ tournament.category.name }}</p>
+            </div>
+            <div>
+                <p class="text-slate-500">Boshlanish</p>
+                <p class="font-semibold text-slate-800">{{ tournament.start_time|date:"M d, Y H:i" }}</p>
+            </div>
+            <div>
+                <p class="text-slate-500">Tugash</p>
+                <p class="font-semibold text-slate-800">{{ tournament.end_time|date:"M d, Y H:i" }}</p>
+            </div>
+            <div>
+                <p class="text-slate-500">Ball/savol</p>
+                <p class="font-semibold text-slate-800">{{ tournament.points_per_question }}</p>
+            </div>
+            {% if tournament.description %}
+            <div>
+                <p class="text-slate-500">Tavsif</p>
+                <p class="text-slate-800">{{ tournament.description }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

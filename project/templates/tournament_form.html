@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Create Tournament | GeeksBoard{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <div class="flex items-center justify-between">
+        <div>
+            <p class="text-xs uppercase text-slate-500">Yangi turnir</p>
+            <h2 class="text-3xl font-semibold text-slate-800">{{ group.name }}</h2>
+        </div>
+        <a href="{% url 'tournament_list' group.id %}" class="px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-sm font-medium">
+            ← Orqaga
+        </a>
+    </div>
+</div>
+
+<div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100 max-w-2xl">
+    <form method="post">
+        {% csrf_token %}
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Turnir nomi *</label>
+                <input type="text" name="name" required class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Tavsif</label>
+                <textarea name="description" rows="3" class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Kategoriya *</label>
+                <select name="category" required class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Tanlang...</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Boshlanish vaqti *</label>
+                    <input type="datetime-local" name="start_time" required class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">Tugash vaqti *</label>
+                    <input type="datetime-local" name="end_time" required class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-slate-700 mb-2">Ball har bir savol uchun</label>
+                <input type="number" name="points_per_question" value="10" min="1" class="w-full border border-slate-200 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+        </div>
+        
+        <div class="mt-6 flex gap-3">
+            <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+                Yaratish
+            </button>
+            <a href="{% url 'tournament_list' group.id %}" class="px-6 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 font-medium">
+                Bekor qilish
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+

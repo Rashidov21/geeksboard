@@ -1,13 +1,18 @@
 from django.contrib import admin
 
 from .models import (
+    Badge,
     Group,
     InteractiveCategory,
     InteractiveItem,
     Mentor,
+    MotivationalMessage,
     PointCategory,
     Student,
+    StudentBadge,
     StudentPoint,
+    Tournament,
+    TournamentParticipant,
 )
 
 
@@ -26,7 +31,7 @@ class StudentInline(admin.TabularInline):
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('name', 'mentor', 'subject', 'schedule')
     list_filter = ('mentor', 'subject')
-    search_fields = ('name', 'mentor__user__username')
+    search_fields = ('name', 'mentor__user__username', 'subject')
     inlines = [StudentInline]
 
 
@@ -56,10 +61,54 @@ class StudentPointAdmin(admin.ModelAdmin):
 class InteractiveCategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'color', 'is_active')
     list_editable = ('is_active',)
+    search_fields = ('name', 'description')
 
 
 @admin.register(InteractiveItem)
 class InteractiveItemAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'type', 'difficulty', 'is_active')
+    list_display = ('title', 'category', 'type', 'difficulty', 'time_limit', 'is_active')
     list_filter = ('category', 'type', 'is_active')
     search_fields = ('title', 'prompt')
+    list_editable = ('time_limit',)
+
+
+@admin.register(Badge)
+class BadgeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'icon', 'criteria_type', 'criteria_value', 'is_active')
+    list_filter = ('criteria_type', 'is_active')
+    search_fields = ('name', 'description')
+    list_editable = ('is_active',)
+
+
+@admin.register(StudentBadge)
+class StudentBadgeAdmin(admin.ModelAdmin):
+    list_display = ('student', 'badge', 'earned_at')
+    list_filter = ('badge', 'earned_at')
+    search_fields = ('student__full_name', 'badge__name')
+    autocomplete_fields = ('student',)
+
+
+@admin.register(Tournament)
+class TournamentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'group', 'category', 'start_time', 'end_time', 'is_active')
+    list_filter = ('group', 'category', 'is_active', 'start_time')
+    search_fields = ('name', 'description')
+    filter_horizontal = ('questions',)
+    autocomplete_fields = ('group', 'category')
+
+
+@admin.register(TournamentParticipant)
+class TournamentParticipantAdmin(admin.ModelAdmin):
+    list_display = ('student', 'tournament', 'score', 'correct_answers', 'total_questions', 'completed_at')
+    list_filter = ('tournament', 'completed_at')
+    search_fields = ('student__full_name', 'tournament__name')
+    autocomplete_fields = ('student', 'tournament')
+
+
+@admin.register(MotivationalMessage)
+class MotivationalMessageAdmin(admin.ModelAdmin):
+    list_display = ('student', 'message_type', 'is_read', 'created_at')
+    list_filter = ('message_type', 'is_read', 'created_at')
+    search_fields = ('student__full_name', 'message')
+    autocomplete_fields = ('student',)
+    list_editable = ('is_read',)

@@ -1,20 +1,30 @@
 import calendar
-from datetime import date
+from datetime import date, datetime, timedelta
+from io import BytesIO
 from typing import Optional
+
+import json
 
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.db import models
-from django.db.models import Count, Sum
-from django.http import JsonResponse
+from django.db.models import Avg, Count, Q, Sum
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
+from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 
 from .forms import GroupForm, MentorRegistrationForm, StudentForm, StudentPointForm
-from .models import Group, InteractiveCategory, PointCategory, Student, StudentPoint
+from .models import (
+    Badge, Group, InteractiveCategory, InteractiveItem, MotivationalMessage,
+    PointCategory, Student, StudentBadge, StudentPoint, Tournament, TournamentParticipant
+)
+from .utils import (
+    check_and_assign_badges, generate_certificate_pdf, generate_motivational_message
+)
 
 
 def _current_month_range(target_date: Optional[date] = None):
@@ -94,6 +104,27 @@ def dashboard(request):
         .select_related('student', 'category')
         .order_by('-date')[:5]
     )
+    
+    # Analytics: Group average scores
+    group_analytics = []
+    for group in groups:
+        avg_score = group.students.annotate(
+            total_points=Sum('points__score', default=0)
+        ).aggregate(avg=Avg('total_points'))['avg'] or 0
+        
+        most_active = (
+            group.students.annotate(
+                activity_count=Count('points', filter=Q(points__score__gt=0))
+            )
+            .order_by('-activity_count')
+            .first()
+        )
+        
+        group_analytics.append({
+            'group': group,
+            'avg_score': round(avg_score, 1),
+            'most_active': most_active,
+        })
 
     context = {
         'mentor': mentor,
@@ -103,6 +134,7 @@ def dashboard(request):
         'recent_points': recent_points,
         'categories': PointCategory.objects.filter(is_active=True),
         'interactive_categories': InteractiveCategory.objects.filter(is_active=True)[:4],
+        'group_analytics': group_analytics,
     }
     return render(request, 'dashboard.html', context)
 
@@ -273,12 +305,35 @@ def student_profile(request, student_id: int):
     student = get_object_or_404(Student, id=student_id, group__mentor=mentor)
     points = student.points.select_related('category').order_by('-date')
     
-    total_points = sum(p.score for p in points)
+    total_points = student.total_score()
+    level = student.get_level()
+    level_thresholds = student.get_level_thresholds()
+    progress = student.get_progress_percentage()
+    trend = student.get_trend(days=30)
+    badges = student.badges_earned.select_related('badge').order_by('-earned_at')
+    
+    # Generate or get motivational message
+    motivational_message = generate_motivational_message(student)
+    
+    # Check for new badges
+    newly_earned = check_and_assign_badges(student)
+    if newly_earned:
+        messages.success(request, f'Congratulations! {student.full_name} earned {len(newly_earned)} new badge(s)!')
+    
+    # Get monthly reward history
+    monthly_rewards = student.points.filter(reason='Monthly Reward').order_by('-date')
     
     context = {
         'student': student,
         'points': points,
         'total_points': total_points,
+        'level': level,
+        'level_thresholds': level_thresholds,
+        'progress': progress,
+        'trend': trend,
+        'badges': badges,
+        'motivational_message': motivational_message,
+        'monthly_rewards': monthly_rewards,
     }
     return render(request, 'student_profile.html', context)
 
@@ -415,4 +470,282 @@ def best_student(request):
         'month_label': start.strftime('%B %Y'),
     }
     return render(request, 'best_student.html', context)
+
+
+@login_required
+def monthly_leaderboard(request, group_id: int):
+    mentor = _require_mentor(request)
+    if not mentor:
+        return redirect('login')
+    
+    group = get_object_or_404(Group, id=group_id, mentor=mentor)
+    month = request.GET.get('month')
+    
+    if month:
+        try:
+            target_date = datetime.strptime(month, '%Y-%m')
+            start, end = _current_month_range(target_date.date())
+        except ValueError:
+            start, end = _current_month_range()
+    else:
+        start, end = _current_month_range()
+    
+    top_students = (
+        group.students.annotate(
+            month_total=Sum(
+                'points__score',
+                filter=models.Q(points__date__date__range=(start, end)),
+                default=0
+            )
+        )
+        .filter(month_total__gt=0)
+        .order_by('-month_total', 'full_name')[:3]
+    )
+    
+    context = {
+        'group': group,
+        'top_students': top_students,
+        'month_label': start.strftime('%B %Y'),
+    }
+    return render(request, 'leaderboard.html', context)
+
+
+@login_required
+def certificate_view(request, student_id: int):
+    mentor = _require_mentor(request)
+    if not mentor:
+        return redirect('login')
+    
+    student = get_object_or_404(Student, id=student_id, group__mentor=mentor)
+    month = request.GET.get('month')
+    
+    if month:
+        try:
+            target_date = datetime.strptime(month, '%Y-%m')
+        except ValueError:
+            target_date = timezone.now()
+    else:
+        target_date = timezone.now()
+    
+    pdf_buffer = generate_certificate_pdf(student, target_date)
+    
+    if pdf_buffer is None:
+        messages.error(request, 'PDF generation is not available. Please install reportlab.')
+        return redirect('student_profile', student_id=student_id)
+    
+    response = HttpResponse(pdf_buffer.read(), content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="certificate_{student.full_name}_{target_date.strftime("%Y_%m")}.pdf"'
+    return response
+
+
+@login_required
+def analytics_dashboard(request, group_id: int):
+    mentor = _require_mentor(request)
+    if not mentor:
+        return redirect('login')
+    
+    group = get_object_or_404(Group, id=group_id, mentor=mentor)
+    
+    # Group statistics
+    students = group.students.all()
+    total_students = students.count()
+    
+    # Average score
+    avg_score = students.annotate(
+        total_points=Sum('points__score', default=0)
+    ).aggregate(avg=Avg('total_points'))['avg'] or 0
+    
+    # Most active student
+    most_active = (
+        students.annotate(
+            activity_count=Count('points', filter=Q(points__score__gt=0))
+        )
+        .order_by('-activity_count')
+        .first()
+    )
+    
+    # Student with most absences (negative attendance points)
+    attendance_category = PointCategory.objects.filter(slug='attendance').first()
+    most_absences = None
+    if attendance_category:
+        most_absences = (
+            students.annotate(
+                absences=Count('points', filter=Q(points__category=attendance_category, points__score__lt=0))
+            )
+            .order_by('-absences')
+            .first()
+        )
+    
+    # Rating distribution data for chart
+    rating_distribution = []
+    for student in students:
+        total = student.total_score()
+        level = student.get_level()
+        rating_distribution.append({
+            'name': student.full_name,
+            'points': total,
+            'level': level
+        })
+    rating_distribution.sort(key=lambda x: x['points'], reverse=True)
+    
+    # Activity trends (last 30 days)
+    now = timezone.now()
+    activity_data = []
+    for i in range(30, 0, -1):
+        date = now - timedelta(days=i)
+        count = StudentPoint.objects.filter(
+            student__group=group,
+            date__date=date.date()
+        ).count()
+        activity_data.append({
+            'date': date.strftime('%Y-%m-%d'),
+            'count': count
+        })
+    
+    # Homework submission percentage
+    homework_category = PointCategory.objects.filter(slug='homework').first()
+    homework_stats = []
+    if homework_category:
+        for student in students:
+            total_homework = StudentPoint.objects.filter(
+                student=student,
+                category=homework_category
+            ).count()
+            completed_homework = StudentPoint.objects.filter(
+                student=student,
+                category=homework_category,
+                score__gt=0
+            ).count()
+            percentage = (completed_homework / total_homework * 100) if total_homework > 0 else 0
+            homework_stats.append({
+                'student': student.full_name,
+                'percentage': round(percentage, 1)
+            })
+    
+    context = {
+        'group': group,
+        'total_students': total_students,
+        'avg_score': round(avg_score, 1),
+        'most_active': most_active,
+        'most_absences': most_absences,
+        'rating_distribution': json.dumps(rating_distribution),
+        'activity_data': json.dumps(activity_data),
+        'homework_stats': json.dumps(homework_stats),
+    }
+    return render(request, 'analytics.html', context)
+
+
+@login_required
+def tournament_list(request, group_id: int):
+    mentor = _require_mentor(request)
+    if not mentor:
+        return redirect('login')
+    
+    group = get_object_or_404(Group, id=group_id, mentor=mentor)
+    tournaments = group.tournaments.filter(is_active=True).order_by('-start_time')
+    
+    context = {
+        'group': group,
+        'tournaments': tournaments,
+    }
+    return render(request, 'tournament_list.html', context)
+
+
+@login_required
+def tournament_create(request, group_id: int):
+    mentor = _require_mentor(request)
+    if not mentor:
+        return redirect('login')
+    
+    group = get_object_or_404(Group, id=group_id, mentor=mentor)
+    
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        description = request.POST.get('description', '')
+        category_id = request.POST.get('category')
+        start_time = request.POST.get('start_time')
+        end_time = request.POST.get('end_time')
+        points_per_question = int(request.POST.get('points_per_question', 10))
+        question_ids = request.POST.getlist('questions')
+        
+        if name and category_id and start_time and end_time:
+            category = get_object_or_404(InteractiveCategory, id=category_id)
+            tournament = Tournament.objects.create(
+                group=group,
+                name=name,
+                description=description,
+                category=category,
+                start_time=start_time,
+                end_time=end_time,
+                points_per_question=points_per_question
+            )
+            if question_ids:
+                questions = InteractiveItem.objects.filter(id__in=question_ids)
+                tournament.questions.set(questions)
+            
+            messages.success(request, f'Tournament "{tournament.name}" created successfully!')
+            return redirect('tournament_list', group_id=group.id)
+        else:
+            messages.error(request, 'Please fill in all required fields.')
+    
+    categories = InteractiveCategory.objects.filter(is_active=True)
+    context = {
+        'group': group,
+        'categories': categories,
+    }
+    return render(request, 'tournament_form.html', context)
+
+
+@login_required
+def tournament_detail(request, tournament_id: int):
+    mentor = _require_mentor(request)
+    if not mentor:
+        return redirect('login')
+    
+    tournament = get_object_or_404(Tournament, id=tournament_id, group__mentor=mentor)
+    participants = tournament.participants.select_related('student').order_by('-score', 'completed_at')
+    
+    context = {
+        'tournament': tournament,
+        'participants': participants,
+    }
+    return render(request, 'tournament_detail.html', context)
+
+
+@login_required
+def student_rating(request, group_id: int):
+    mentor = _require_mentor(request)
+    if not mentor:
+        return redirect('login')
+
+    group = get_object_or_404(Group, id=group_id, mentor=mentor)
+    students = (
+        group.students.annotate(total_points=Sum('points__score', default=0))
+        .order_by('-total_points', 'full_name')
+    )
+
+    categories = PointCategory.objects.filter(is_active=True)
+    breakdown = []
+    for student in students:
+        category_scores = [
+            student.points.filter(category=category).aggregate(total=Sum('score'))['total'] or 0
+            for category in categories
+        ]
+        level = student.get_level()
+        progress = student.get_progress_percentage()
+        trend = student.get_trend(days=30)
+        breakdown.append({
+            'student': student,
+            'scores': category_scores,
+            'level': level,
+            'progress': progress,
+            'trend': trend,
+        })
+
+    context = {
+        'group': group,
+        'categories': categories,
+        'breakdown': breakdown,
+    }
+    return render(request, 'student_rating.html', context)
 

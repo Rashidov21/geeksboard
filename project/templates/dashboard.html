@@ -76,10 +76,21 @@
                         {{ group.name }}
                     </a>
                     <div class="flex gap-2">
+                        <a href="{% url 'analytics_dashboard' group.id %}" class="text-xs text-slate-500 hover:text-purple-600" title="Analitika">📊</a>
                         <a href="{% url 'group_edit' group.id %}" class="text-xs text-slate-500 hover:text-accent" title="Tahrirlash">✏️</a>
                     </div>
                 </div>
-                <p class="text-xs text-slate-500">{{ group.student_count }} ta talaba</p>
+                <p class="text-xs text-slate-500 mb-2">{{ group.student_count }} ta talaba</p>
+                {% for analytics in group_analytics %}
+                    {% if analytics.group.id == group.id %}
+                    <div class="flex gap-4 text-xs text-slate-600">
+                        <span>O'rtacha: <strong>{{ analytics.avg_score }}</strong> ball</span>
+                        {% if analytics.most_active %}
+                        <span>Eng faol: <strong>{{ analytics.most_active.full_name }}</strong></span>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {% endfor %}
             </div>
             {% empty %}
             <div class="text-center py-4">

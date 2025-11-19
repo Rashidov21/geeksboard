@@ -26,6 +26,13 @@ urlpatterns = [
     path('interactive/', views.interactive_categories, name='interactive_categories'),
     path('interactive/<int:category_id>/', views.interactive_question, name='interactive_question'),
     path('best-student/', views.best_student, name='best_student'),
+    # Gamification features
+    path('groups/<int:group_id>/leaderboard/', views.monthly_leaderboard, name='monthly_leaderboard'),
+    path('groups/<int:group_id>/analytics/', views.analytics_dashboard, name='analytics_dashboard'),
+    path('groups/<int:group_id>/tournaments/', views.tournament_list, name='tournament_list'),
+    path('groups/<int:group_id>/tournaments/create/', views.tournament_create, name='tournament_create'),
+    path('tournaments/<int:tournament_id>/', views.tournament_detail, name='tournament_detail'),
+    path('students/<int:student_id>/certificate/', views.certificate_view, name='certificate_view'),
 ]
 
 

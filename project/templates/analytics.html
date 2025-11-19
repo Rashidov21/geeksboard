@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics | GeeksBoard{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <div class="flex items-center justify-between">
+        <div>
+            <p class="text-xs uppercase text-slate-500">Analitika</p>
+            <h2 class="text-3xl font-semibold text-slate-800">{{ group.name }}</h2>
+        </div>
+        <div class="flex gap-2">
+            <a href="{% url 'student_rating' group.id %}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm font-medium">
+                Reyting
+            </a>
+            <a href="{% url 'student_list' group.id %}" class="px-4 py-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-sm font-medium">
+                Guruhga qaytish
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+        <p class="text-xs uppercase text-slate-500 mb-2">O'rtacha ball</p>
+        <p class="text-4xl font-bold text-accent">{{ avg_score }}</p>
+    </div>
+    
+    {% if most_active %}
+    <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+        <p class="text-xs uppercase text-slate-500 mb-2">Eng faol talaba</p>
+        <p class="text-lg font-semibold text-slate-800">{{ most_active.full_name }}</p>
+        <p class="text-xs text-slate-500 mt-1">{{ most_active.activity_count }} ta faoliyat</p>
+    </div>
+    {% endif %}
+    
+    {% if most_absences %}
+    <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+        <p class="text-xs uppercase text-slate-500 mb-2">Ko'p qolgan talaba</p>
+        <p class="text-lg font-semibold text-slate-800">{{ most_absences.full_name }}</p>
+        <p class="text-xs text-red-600 mt-1">{{ most_absences.absences }} ta qolgan</p>
+    </div>
+    {% endif %}
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">Reyting taqsimoti</h3>
+        <canvas id="ratingChart" height="300"></canvas>
+    </div>
+    
+    <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+        <h3 class="text-xl font-semibold text-slate-800 mb-4">Faoliyat trendi (30 kun)</h3>
+        <canvas id="activityChart" height="300"></canvas>
+    </div>
+</div>
+
+{% if homework_stats %}
+<div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-100">
+    <h3 class="text-xl font-semibold text-slate-800 mb-4">Uy vazifasi bajarilishi</h3>
+    <canvas id="homeworkChart" height="200"></canvas>
+</div>
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Rating Distribution Chart
+    const ratingCtx = document.getElementById('ratingChart');
+    if (ratingCtx) {
+        const ratingData = {{ rating_distribution|safe }};
+        new Chart(ratingCtx, {
+            type: 'bar',
+            data: {
+                labels: ratingData.map(item => item.name),
+                datasets: [{
+                    label: 'Ballar',
+                    data: ratingData.map(item => item.points),
+                    backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Activity Trend Chart
+    const activityCtx = document.getElementById('activityChart');
+    if (activityCtx) {
+        const activityData = {{ activity_data|safe }};
+        new Chart(activityCtx, {
+            type: 'line',
+            data: {
+                labels: activityData.map(item => item.date),
+                datasets: [{
+                    label: 'Faoliyatlar soni',
+                    data: activityData.map(item => item.count),
+                    borderColor: 'rgba(16, 185, 129, 1)',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Homework Chart
+    const homeworkCtx = document.getElementById('homeworkChart');
+    if (homeworkCtx) {
+        const homeworkData = {{ homework_stats|safe }};
+        new Chart(homeworkCtx, {
+            type: 'doughnut',
+            data: {
+                labels: homeworkData.map(item => item.student),
+                datasets: [{
+                    data: homeworkData.map(item => item.percentage),
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(239, 68, 68, 0.8)',
+                        'rgba(139, 92, 246, 0.8)',
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+    }
+</script>
+{% endblock %}
+
